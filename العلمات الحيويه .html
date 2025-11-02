@@ -1,0 +1,3771 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Learning Platform - Vital Signs | Mohamed Salah</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables - Color System */
+        :root {
+            --font-ar: 'Cairo', sans-serif;
+            --font-en: 'Roboto', sans-serif;
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --primary-light: #818CF8;
+            --secondary: #10B981;
+            --secondary-dark: #059669;
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --danger: #EF4444;
+            --success: #10B981;
+            --bg: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --bg-card: #FFFFFF;
+            --text: #0F172A;
+            --text-secondary: #334155;
+            --text-light: #475569;
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+            --border-dark: #CBD5E1;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            --transition-fast: 150ms;
+            --transition-base: 300ms;
+            --transition-slow: 500ms;
+            --transition-all: all 0.3s ease;
+        }
+        
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-tertiary: #334155;
+            --bg-card: #1E293B;
+            --text: #F1F5F9;
+            --text-secondary: #E2E8F0;
+            --text-light: #CBD5E1;
+            --border: #334155;
+            --border-light: #475569;
+            --border-dark: #1E293B;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.5), 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Base Styles */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        *::before, *::after { 
+            box-sizing: border-box; 
+        }
+        
+        html { 
+            scroll-behavior: smooth; 
+            font-size: 16px; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale; 
+        }
+        
+        body { 
+            font-family: var(--font-en); 
+            font-weight: 600; 
+            font-size: 1.125rem; 
+            line-height: 1.8; 
+            color: var(--text); 
+            background: var(--bg); 
+            transition: background-color var(--transition-base) ease, color var(--transition-base) ease; 
+            overflow-x: hidden; 
+            min-height: 100vh; 
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 { 
+            font-weight: 800; 
+            line-height: 1.4; 
+            margin-bottom: 1rem; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+            hyphens: auto; 
+            color: var(--text); 
+        }
+        
+        h1 { 
+            font-size: 3rem; 
+            color: var(--primary); 
+            margin-bottom: 2rem; 
+            text-align: center; 
+        }
+        
+        h2 { 
+            font-size: 2.5rem; 
+            color: var(--secondary); 
+            margin-bottom: 1.5rem; 
+        }
+        
+        h3 { 
+            font-size: 2rem; 
+            color: var(--accent); 
+            margin-bottom: 1.25rem; 
+        }
+        
+        h4 { 
+            font-size: 1.5rem; 
+            color: var(--text-secondary); 
+            margin-bottom: 1rem; 
+        }
+        
+        h5 { 
+            font-size: 1.25rem; 
+            margin-bottom: 0.75rem; 
+        }
+        
+        h6 { 
+            font-size: 1.125rem; 
+            margin-bottom: 0.75rem; 
+        }
+        
+        p { 
+            margin-bottom: 1rem; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+            line-height: 1.8; 
+        }
+        
+        strong { 
+            font-weight: 900; 
+            color: var(--text); 
+        }
+        
+        em { 
+            font-style: italic; 
+            color: var(--text-secondary); 
+        }
+        
+        a { 
+            color: var(--primary); 
+            text-decoration: none; 
+            transition: var(--transition-all); 
+        }
+        
+        a:hover { 
+            color: var(--primary-dark); 
+            text-decoration: underline; 
+        }
+        
+        a:focus { 
+            outline: 2px solid var(--primary); 
+            outline-offset: 2px; 
+        }
+        
+        ul, ol { 
+            margin: 1rem 0; 
+            padding-left: 1.5rem; 
+            line-height: 1.8; 
+        }
+        
+        li { 
+            margin-bottom: 0.5rem; 
+            word-wrap: break-word; 
+        }
+        
+        button { 
+            font-family: var(--font-en); 
+            cursor: pointer; 
+            border: none; 
+            outline: none; 
+            transition: var(--transition-all); 
+            font-weight: 700; 
+        }
+        
+        button:hover { 
+            transform: translateY(-2px); 
+        }
+        
+        button:active { 
+            transform: translateY(0); 
+        }
+        
+        button:disabled { 
+            opacity: 0.5; 
+            cursor: not-allowed; 
+        }
+        
+        /* Text Wrapping for All Content Elements */
+        .page, .numbered-item, .dual-text-row, .english-side, .arabic-side, 
+        .flashcard-back, .explanation, .medical-example, .practical-example, 
+        .doctor-note, .professor-explanation, .sub-concept, .comparison-table-3col, 
+        .keyword-item, .trick-breakdown, .analysis-step, .tip-box, .question-card, 
+        .option-text, .number-card, .key-point, .glossary-item { 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+            hyphens: auto; 
+            overflow: auto; 
+            white-space: normal; 
+        }
+        
+        /* Highlight Styles */
+        .highlight { 
+            padding: 0.2rem 0.6rem; 
+            border-radius: 1.2rem; 
+            font-weight: 800; 
+            transition: var(--transition-all); 
+            display: inline-block; 
+            line-height: 1.6; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+            position: relative; 
+        }
+        
+        .highlight-1 { 
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); 
+            color: #92400E; 
+            border: 1px solid #F59E0B; 
+        }
+        
+        .highlight-2 { 
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%); 
+            color: #1E40AF; 
+            border: 1px solid #3B82F6; 
+        }
+        
+        .highlight-3 { 
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); 
+            color: #065F46; 
+            border: 1px solid #10B981; 
+        }
+        
+        .highlight-4 { 
+            background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%); 
+            color: #9F1239; 
+            border: 1px solid #EC4899; 
+        }
+        
+        .highlight-5 { 
+            background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%); 
+            color: #5B21B6; 
+            border: 1px solid #8B5CF6; 
+        }
+        
+        .highlight-blood { 
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%); 
+            color: #991B1B; 
+            border: 1px solid #EF4444; 
+        }
+        
+        .highlight-urine { 
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); 
+            color: #92400E; 
+            border: 1px solid #F59E0B; 
+        }
+        
+        .highlight-blue { 
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%); 
+            color: #1E40AF; 
+            border: 1px solid #3B82F6; 
+        }
+        
+        .highlight-green { 
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%); 
+            color: #065F46; 
+            border: 1px solid #10B981; 
+        }
+        
+        .highlight-pink { 
+            background: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%); 
+            color: #9F1239; 
+            border: 1px solid #EC4899; 
+        }
+        
+        .highlight-purple { 
+            background: linear-gradient(135deg, #E0E7FF 0%, #C7D2FE 100%); 
+            color: #5B21B6; 
+            border: 1px solid #8B5CF6; 
+        }
+        
+        .highlight:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { 
+            width: 12px; 
+            height: 12px; 
+        }
+        
+        ::-webkit-scrollbar-track { 
+            background: var(--bg-secondary); 
+        }
+        
+        ::-webkit-scrollbar-thumb { 
+            background: var(--border-dark); 
+            border-radius: var(--radius-full); 
+        }
+        
+        ::-webkit-scrollbar-thumb:hover { 
+            background: var(--primary); 
+        }
+        
+        body.dark-mode ::-webkit-scrollbar-track { 
+            background: var(--bg-tertiary); 
+        }
+        
+        body.dark-mode ::-webkit-scrollbar-thumb { 
+            background: var(--border); 
+        }
+        
+        /* Header Styles */
+        header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            width: 100%; 
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(20px) saturate(180%); 
+            -webkit-backdrop-filter: blur(20px) saturate(180%); 
+            box-shadow: var(--shadow-lg); 
+            z-index: 1000; 
+            transition: transform var(--transition-base) ease; 
+            border-bottom: 2px solid var(--border); 
+        }
+        
+        body.dark-mode header { 
+            background: rgba(30, 41, 59, 0.95); 
+        }
+        
+        header.collapsed { 
+            transform: translateY(-100%); 
+        }
+        
+        .header-container { 
+            max-width: 1600px; 
+            margin: 0 auto; 
+            padding: 0.75rem 1.5rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 1rem; 
+            flex-wrap: wrap; 
+        }
+        
+        .logo-section { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.3rem; 
+        }
+        
+        .site-title { 
+            font-size: 1.25rem; 
+            font-weight: 900; 
+            color: var(--text); 
+            font-family: var(--font-en); 
+            line-height: 1.3; 
+        }
+        
+        .developer-name { 
+            font-family: var(--font-en); 
+            font-size: 1rem; 
+            font-weight: 900; 
+            background: linear-gradient(135deg, #FFD700, #FFA500, #FF6B6B); 
+            background-size: 200% auto; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            animation: gradientShift 3s ease infinite; 
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5)); 
+        }
+        
+        @keyframes gradientShift { 
+            0%, 100% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+        }
+        
+        /* Hamburger Menu */
+        .menu-toggle { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-around; 
+            width: 2rem; 
+            height: 2rem; 
+            background: transparent; 
+            border: none; 
+            cursor: pointer; 
+            padding: 0; 
+            z-index: 1002; 
+        }
+        
+        .menu-toggle span { 
+            width: 2rem; 
+            height: 3px; 
+            background-color: var(--text); 
+            border-radius: 10px; 
+            transition: var(--transition-all); 
+            transform-origin: 1px; 
+        }
+        
+        body.dark-mode .menu-toggle span { 
+            background-color: var(--text); 
+        }
+        
+        .menu-toggle.open span:nth-child(1) { 
+            transform: rotate(45deg); 
+        }
+        
+        .menu-toggle.open span:nth-child(2) { 
+            opacity: 0; 
+        }
+        
+        .menu-toggle.open span:nth-child(3) { 
+            transform: rotate(-45deg); 
+        }
+        
+        .nav-container { 
+            position: absolute; 
+            top: 100%; 
+            left: 0; 
+            right: 0; 
+            background: var(--bg); 
+            box-shadow: var(--shadow-lg); 
+            border-top: 1px solid var(--border); 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(-20px); 
+            transition: var(--transition-all); 
+        }
+        
+        body.dark-mode .nav-container { 
+            background: var(--bg-secondary); 
+        }
+        
+        .nav-container.open { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+        
+        .main-nav { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 1rem 0; 
+        }
+        
+        .main-nav a { 
+            padding: 1rem 1.5rem; 
+            font-size: 1.125rem; 
+            font-weight: 800; 
+            color: var(--text-secondary); 
+            text-decoration: none; 
+            border-radius: var(--radius-xl); 
+            transition: var(--transition-all); 
+            width: 100%; 
+            text-align: center; 
+        }
+        
+        .main-nav a:hover, .main-nav a.active { 
+            background: var(--primary); 
+            color: white; 
+            transform: translateY(-2px); 
+            box-shadow: var(--shadow); 
+        }
+        
+        .header-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 1rem; 
+        }
+        
+        .theme-toggle { 
+            padding: 0.75rem; 
+            font-size: 1.5rem; 
+            background: var(--bg-card); 
+            border-radius: var(--radius-xl); 
+            cursor: pointer; 
+            transition: var(--transition-all); 
+            box-shadow: var(--shadow); 
+        }
+        
+        .theme-toggle:hover { 
+            transform: scale(1.1) rotate(20deg); 
+            box-shadow: var(--shadow-lg); 
+        }
+        
+        /* Dual Text Row Layout */
+        .dual-text-row { 
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr; 
+            gap: 1.5rem; 
+            align-items: start; 
+            margin: 1.5rem 0; 
+            padding: 1.5rem; 
+            background: var(--bg-card); 
+            border-radius: var(--radius-2xl); 
+            box-shadow: var(--shadow); 
+            overflow: auto; 
+        }
+        
+        .english-side { 
+            font-family: var(--font-en); 
+            font-size: 1.125rem; 
+            font-weight: 700; 
+            color: var(--text); 
+            text-align: left; 
+            direction: ltr; 
+            padding: 1rem; 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-xl); 
+            border-left: 4px solid var(--primary); 
+            grid-column: 1; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+            line-height: 1.8; 
+        }
+        
+        .arrow-separator { 
+            font-size: 2.5rem; 
+            color: var(--accent); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            grid-column: 2; 
+            align-self: center; 
+        }
+        
+        .arrow-separator::before { 
+            content: '→'; 
+        }
+        
+        .arabic-side { 
+            font-family: var(--font-ar); 
+            font-size: 1.125rem; 
+            font-weight: 700; 
+            color: var(--text); 
+            text-align: right; 
+            direction: rtl; 
+            padding: 1rem; 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-xl); 
+            border-right: 4px solid var(--secondary); 
+            grid-column: 3; 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+            line-height: 2; 
+        }
+        
+        /* Page Layout */
+        .page { 
+            display: none; 
+            padding: 120px 1rem 2rem; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            min-height: 100vh; 
+        }
+        
+        .page.active-page { 
+            display: block; 
+            animation: fadeInPage 0.5s ease; 
+        }
+        
+        @keyframes fadeInPage { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .page h1 { 
+            text-align: center; 
+            margin-bottom: 3rem; 
+            padding-bottom: 1rem; 
+            border-bottom: 4px solid var(--primary); 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+        }
+        
+        /* Numbered Sections */
+        .numbered-section { 
+            counter-reset: section-counter; 
+        }
+        
+        .numbered-item { 
+            position: relative; 
+            margin: 3rem 0; 
+            padding: 2rem; 
+            background: var(--bg-card); 
+            border-radius: var(--radius-2xl); 
+            box-shadow: var(--shadow-xl); 
+            border-left: 5px solid var(--primary); 
+            counter-increment: section-counter; 
+            overflow: auto; 
+        }
+        
+        .numbered-item > h2 { 
+            font-size: 2.5rem; 
+            margin-bottom: 1.5rem; 
+            color: var(--primary); 
+            padding-bottom: 1rem; 
+            border-bottom: 3px solid var(--border); 
+        }
+        
+        /* Flashcard Styles */
+        .flashcard-section { 
+            max-width: 900px; 
+            margin: 3rem auto; 
+            padding: 1.5rem; 
+        }
+        
+        .flashcard { 
+            width: 100%; 
+            max-width: 800px; 
+            height: 400px; 
+            margin: 0 auto 1.5rem; 
+            perspective: 1000px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: stretch; 
+        }
+        
+        .flashcard-inner { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            transition: transform 0.6s; 
+            transform-style: preserve-3d; 
+        }
+        
+        .flashcard.flipped .flashcard-inner { 
+            transform: rotateY(180deg); 
+        }
+        
+        .flashcard-front, .flashcard-back { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            -webkit-backface-visibility: hidden; 
+            border-radius: var(--radius-2xl); 
+            box-shadow: var(--shadow-xl); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 2rem; 
+            overflow: auto; 
+            white-space: normal; 
+        }
+        
+        .flashcard-front { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        
+        .flashcard-front h2 { 
+            font-size: clamp(2rem, 5vw, 3rem); 
+            font-weight: 900; 
+            text-align: center; 
+            color: white; 
+            word-break: break-word; 
+        }
+        
+        .flashcard-back { 
+            background: var(--bg-card); 
+            border: 3px solid var(--primary); 
+            transform: rotateY(180deg); 
+            padding: 1.5rem; 
+        }
+        
+        .flashcard-back h2 { 
+            font-size: 2.5rem; 
+            color: var(--text); 
+            margin-bottom: 1rem; 
+            text-align: center; 
+        }
+        
+        .flashcard-back h3 { 
+            font-size: 1.875rem; 
+            color: var(--accent); 
+            margin-bottom: 1.5rem; 
+            text-align: center; 
+        }
+        
+        .flashcard-back .dual-text-row { 
+            width: 100%; 
+            font-size: 1rem; 
+            margin-top: 1rem; 
+        }
+        
+        .flashcard-counter { 
+            text-align: center; 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--text); 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .flashcard-controls-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 1rem; 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-2xl); 
+            box-shadow: var(--shadow-md); 
+        }
+        
+        .flashcard-controls { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1rem; 
+            flex-wrap: wrap; 
+        }
+        
+        .btn-control { 
+            padding: 1rem 1.5rem; 
+            font-size: 1.125rem; 
+            font-weight: 800; 
+            border: none; 
+            border-radius: var(--radius-xl); 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); 
+            color: white; 
+            cursor: pointer; 
+            transition: var(--transition-all); 
+            box-shadow: var(--shadow); 
+            white-space: nowrap; 
+        }
+        
+        .btn-control:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: var(--shadow-lg); 
+        }
+        
+        .btn-control:active { 
+            transform: translateY(-1px) scale(1.02); 
+        }
+        
+        /* Content Sections */
+        .concept-slide { 
+            max-width: 1400px; 
+            margin: 1.5rem auto; 
+            padding: 1.5rem; 
+        }
+        
+        .sub-concept { 
+            margin: 3rem 0; 
+            padding: 1.5rem; 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-2xl); 
+            border: 2px solid var(--border); 
+            overflow: auto; 
+        }
+        
+        .sub-concept h3 { 
+            font-size: 1.875rem; 
+            color: var(--secondary); 
+            margin-bottom: 1.5rem; 
+            padding-left: 1rem; 
+            border-left: 4px solid var(--secondary); 
+        }
+        
+        .sub-concept h4 { 
+            font-size: 1.5rem; 
+            color: var(--accent); 
+            margin: 1.5rem 0 1rem; 
+        }
+        
+        .professor-explanation { 
+            margin: 1.5rem 0; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)); 
+            border-radius: var(--radius-2xl); 
+            border: 2px solid var(--primary); 
+            border-left: 6px solid var(--primary); 
+            overflow: auto; 
+        }
+        
+        .professor-explanation h4 { 
+            color: var(--primary); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        
+        .professor-explanation p { 
+            font-family: var(--font-en); 
+            font-size: 1.125rem; 
+            line-height: 2.2; 
+            color: var(--text); 
+            word-wrap: break-word; 
+            text-align: left; 
+            direction: ltr; 
+        }
+        
+        .professor-explanation strong { 
+            color: var(--primary-dark); 
+            font-weight: 900; 
+        }
+        
+        .practical-example { 
+            margin: 1.5rem 0; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1)); 
+            border-radius: var(--radius-2xl); 
+            border: 2px dashed var(--secondary); 
+            border-left: 6px solid var(--secondary); 
+            overflow: auto; 
+        }
+        
+        .practical-example h4 { 
+            color: var(--secondary); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        
+        .practical-example p { 
+            font-family: var(--font-en); 
+            font-size: 1rem; 
+            line-height: 2.2; 
+            color: var(--text); 
+            word-wrap: break-word; 
+            text-align: left; 
+            direction: ltr; 
+        }
+        
+        .practical-example strong { 
+            color: var(--secondary-dark); 
+            font-weight: 900; 
+        }
+        
+        .doctor-note { 
+            margin: 1.5rem 0; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15)); 
+            border-radius: var(--radius-2xl); 
+            border: 3px solid var(--accent); 
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2); 
+            overflow: auto; 
+        }
+        
+        .doctor-note h4 { 
+            color: var(--accent); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        
+        .doctor-note p { 
+            font-family: var(--font-en); 
+            font-size: 1.125rem; 
+            line-height: 2.2; 
+            color: var(--text); 
+            font-weight: 700; 
+            word-wrap: break-word; 
+            text-align: left; 
+            direction: ltr; 
+        }
+        
+        .doctor-note strong { 
+            color: var(--accent-dark); 
+            font-weight: 900; 
+        }
+        
+        .exam-question { 
+            margin: 1.5rem 0; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1)); 
+            border-radius: var(--radius-2xl); 
+            border: 2px solid var(--danger); 
+            border-left: 6px solid var(--danger); 
+            overflow: auto; 
+        }
+        
+        .exam-question h4 { 
+            color: var(--danger); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        
+        .exam-question p { 
+            font-family: var(--font-en); 
+            font-size: 1rem; 
+            line-height: 2.2; 
+            color: var(--text); 
+            word-wrap: break-word; 
+            text-align: left; 
+            direction: ltr; 
+        }
+        
+        /* Comparison Table */
+        .comparison-container { 
+            max-width: 1400px; 
+            margin: 1.5rem auto; 
+            padding: 1.5rem; 
+        }
+        
+        .comparison-table-3col { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 0; 
+            margin: 1.5rem 0; 
+            border-radius: var(--radius-2xl); 
+            overflow: auto; 
+            box-shadow: var(--shadow-xl); 
+        }
+        
+        .comparison-header { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1.5fr 1.5fr; 
+            gap: 2px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        
+        .comparison-header > div { 
+            padding: 1.5rem; 
+            text-align: center; 
+            font-weight: 900; 
+            font-size: 1.25rem; 
+            color: white; 
+            word-wrap: break-word; 
+        }
+        
+        .comparison-row { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1.5fr 1.5fr; 
+            gap: 2px; 
+            background: var(--border); 
+        }
+        
+        .comparison-row > div { 
+            padding: 1.5rem; 
+            background: var(--bg-card); 
+            font-size: 1.125rem; 
+            line-height: 1.8; 
+            word-wrap: break-word; 
+        }
+        
+        .col-aspect { 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(245, 158, 11, 0.1)); 
+            font-weight: 800; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        
+        .col-item1 { 
+            background-color: rgba(99, 102, 241, 0.02); 
+            border-right: 4px solid var(--primary); 
+            text-align: left; 
+            direction: ltr; 
+        }
+        
+        .col-item2 { 
+            background-color: rgba(16, 185, 129, 0.02); 
+            border-left: 4px solid var(--secondary); 
+            text-align: left; 
+            direction: ltr; 
+        }
+        
+        /* Important Numbers */
+        .numbers-container { 
+            max-width: 1200px; 
+            margin: 1.5rem auto; 
+            padding: 1.5rem; 
+        }
+        
+        .number-slide { 
+            margin: 3rem 0; 
+            padding: 2rem; 
+            background: var(--bg-card); 
+            border-radius: var(--radius-2xl); 
+            box-shadow: var(--shadow-xl); 
+            overflow: auto; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        
+        .number-highlight { 
+            font-size: 8rem; 
+            font-weight: 900; 
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B6B 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            margin-bottom: 1.5rem; 
+            animation: numberPulse 2s ease-in-out infinite; 
+        }
+        
+        @keyframes numberPulse { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.1); } 
+        }
+        
+        .number-title { 
+            font-size: 1.875rem; 
+            color: var(--primary); 
+            margin-bottom: 1.5rem; 
+            text-align: center; 
+        }
+        
+        .number-description { 
+            font-size: 1.25rem; 
+            color: var(--text); 
+            margin-bottom: 1.5rem; 
+            text-align: center; 
+            max-width: 800px; 
+        }
+        
+        .number-explanation { 
+            width: 100%; 
+            margin-top: 1.5rem; 
+        }
+        
+        /* Final Review */
+        .review-section { 
+            max-width: 1200px; 
+            margin: 1.5rem auto; 
+            padding: 1.5rem; 
+        }
+        
+        .review-slide { 
+            margin: 3rem 0; 
+            padding: 2rem; 
+            background: var(--bg-card); 
+            border-radius: var(--radius-2xl); 
+            box-shadow: var(--shadow-xl); 
+            overflow: auto; 
+        }
+        
+        .review-title { 
+            font-size: 1.875rem; 
+            color: var(--primary); 
+            margin-bottom: 1.5rem; 
+            text-align: center; 
+        }
+        
+        .review-content { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 1.5rem; 
+        }
+        
+        .review-english { 
+            font-family: var(--font-en); 
+            font-size: 1.25rem; 
+            line-height: 1.8; 
+            color: var(--text); 
+            padding: 1.5rem; 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-xl); 
+            border-left: 4px solid var(--primary); 
+        }
+        
+        .review-arabic { 
+            font-family: var(--font-ar); 
+            font-size: 1.25rem; 
+            line-height: 2; 
+            color: var(--text); 
+            padding: 1.5rem; 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-xl); 
+            border-right: 4px solid var(--secondary); 
+            text-align: right; 
+            direction: rtl; 
+        }
+        
+        .review-explanation { 
+            margin-top: 1.5rem; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)); 
+            border-radius: var(--radius-xl); 
+            border: 2px solid var(--primary); 
+        }
+        
+        .review-explanation h4 { 
+            color: var(--primary); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+        }
+        
+        .review-explanation p { 
+            font-size: 1.125rem; 
+            line-height: 1.8; 
+        }
+        
+        .review-example { 
+            margin-top: 1.5rem; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1)); 
+            border-radius: var(--radius-xl); 
+            border: 2px dashed var(--secondary); 
+        }
+        
+        .review-example h4 { 
+            color: var(--secondary); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+        }
+        
+        .review-example p { 
+            font-size: 1.125rem; 
+            line-height: 1.8; 
+        }
+        
+        .review-exam-question { 
+            margin-top: 1.5rem; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1)); 
+            border-radius: var(--radius-xl); 
+            border: 2px solid var(--danger); 
+        }
+        
+        .review-exam-question h4 { 
+            color: var(--danger); 
+            font-size: 1.5rem; 
+            margin-bottom: 1rem; 
+        }
+        
+        .review-exam-question p { 
+            font-size: 1.125rem; 
+            line-height: 1.8; 
+        }
+        
+        /* Quiz Section */
+        .quiz-container { 
+            max-width: 1200px; 
+            margin: 1.5rem auto; 
+            padding: 1.5rem; 
+        }
+        
+        .quiz-controls { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 1.5rem; 
+            flex-wrap: wrap; 
+            gap: 1.5rem; 
+        }
+        
+        .quiz-timer { 
+            background: linear-gradient(135deg, var(--accent), var(--danger)); 
+            color: white; 
+            padding: 1rem 1.5rem; 
+            border-radius: var(--radius-xl); 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            box-shadow: var(--shadow); 
+        }
+        
+        .quiz-stats { 
+            display: flex; 
+            gap: 1.5rem; 
+            flex-wrap: wrap; 
+        }
+        
+        .stat-badge { 
+            background: var(--bg-secondary); 
+            padding: 1rem 1.5rem; 
+            border-radius: var(--radius-xl); 
+            border: 2px solid var(--border); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            font-weight: 700; 
+        }
+        
+        .question-card { 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-2xl); 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: var(--shadow); 
+            border-right: 5px solid var(--primary); 
+            position: relative; 
+            transition: var(--transition-all); 
+        }
+        
+        .question-card:hover { 
+            transform: translateY(-2px); 
+            box-shadow: var(--shadow-lg); 
+        }
+        
+        .question-card.answered { 
+            border-right-color: var(--secondary); 
+        }
+        
+        .question-difficulty { 
+            position: absolute; 
+            top: 1.5rem; 
+            left: 1.5rem; 
+            padding: 0.25rem 0.5rem; 
+            border-radius: var(--radius-sm); 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+        }
+        
+        .difficulty-easy { 
+            background: var(--secondary); 
+            color: white; 
+        }
+        
+        .difficulty-medium { 
+            background: var(--accent); 
+            color: white; 
+        }
+        
+        .difficulty-hard { 
+            background: var(--danger); 
+            color: white; 
+        }
+        
+        .question-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            margin-bottom: 1.5rem; 
+            gap: 1.5rem; 
+        }
+        
+        .question-number { 
+            background: var(--primary); 
+            color: white; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 700; 
+            font-size: 1.25rem; 
+            flex-shrink: 0; 
+            box-shadow: var(--shadow); 
+            order: 2; 
+        }
+        
+        .question-text { 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            font-family: var(--font-en); 
+            text-align: right; 
+            direction: ltr; 
+            flex: 1; 
+            line-height: 1.8; 
+            order: 1; 
+            padding-left: 1.5rem; 
+        }
+        
+        .options { 
+            display: grid; 
+            gap: 0.75rem; 
+        }
+        
+        .option { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            padding: 1rem; 
+            background: var(--bg); 
+            border: 2px solid var(--border); 
+            border-radius: var(--radius-xl); 
+            cursor: pointer; 
+            transition: var(--transition-all); 
+        }
+        
+        .option:hover { 
+            background: var(--bg-secondary); 
+            border-color: var(--primary); 
+            transform: translateX(-5px); 
+        }
+        
+        .option-letter { 
+            width: 35px; 
+            height: 35px; 
+            min-width: 35px; 
+            background: var(--primary); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 700; 
+            font-size: 1.125rem; 
+            flex-shrink: 0; 
+        }
+        
+        .option-text { 
+            flex: 1; 
+            font-family: var(--font-en); 
+            text-align: right; 
+            direction: ltr; 
+            font-size: 1.125rem; 
+        }
+        
+        .option.selected { 
+            background: rgba(99, 102, 241, 0.1); 
+            border-color: var(--primary); 
+            border-width: 3px; 
+        }
+        
+        .option.correct { 
+            background: rgba(16, 185, 129, 0.1); 
+            border-color: var(--secondary); 
+            border-width: 3px; 
+        }
+        
+        .option.correct .option-letter { 
+            background: var(--secondary); 
+        }
+        
+        .option.wrong { 
+            background: rgba(239, 68, 68, 0.1); 
+            border-color: var(--danger); 
+            border-width: 3px; 
+        }
+        
+        .option.wrong .option-letter { 
+            background: var(--danger); 
+        }
+        
+        .explanation { 
+            margin-top: 1.5rem; 
+            padding: 1.5rem; 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(16, 185, 129, 0.05)); 
+            border-radius: var(--radius-xl); 
+            border: 2px solid var(--secondary); 
+            display: none; 
+        }
+        
+        .explanation.show { 
+            display: block; 
+            animation: slideDown 0.5s ease; 
+        }
+        
+        @keyframes slideDown { 
+            from { opacity: 0; max-height: 0; } 
+            to { opacity: 1; max-height: 1000px; } 
+        }
+        
+        .dual-content { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem; 
+        }
+        
+        .arabic-content { 
+            text-align: right; 
+            direction: rtl; 
+            padding: 1rem; 
+            background: var(--bg); 
+            border-radius: var(--radius-xl); 
+            border-right: 4px solid var(--secondary); 
+            font-family: var(--font-ar); 
+        }
+        
+        .english-content { 
+            text-align: left; 
+            direction: ltr; 
+            padding: 1rem; 
+            background: var(--bg); 
+            border-radius: var(--radius-xl); 
+            border-left: 4px solid var(--primary); 
+            font-family: var(--font-en); 
+        }
+        
+        .submit-section { 
+            text-align: center; 
+            margin: 1.5rem 0; 
+        }
+        
+        .submit-btn { 
+            background: linear-gradient(135deg, var(--secondary), #059669); 
+            color: white; 
+            border: none; 
+            padding: 1rem 2rem; 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            border-radius: var(--radius-xl); 
+            cursor: pointer; 
+            transition: var(--transition-all); 
+            box-shadow: var(--shadow); 
+        }
+        
+        .submit-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3); 
+        }
+        
+        .results { 
+            background: var(--bg); 
+            border-radius: var(--radius-2xl); 
+            padding: 2rem; 
+            margin: 1.5rem 0; 
+            box-shadow: var(--shadow); 
+            text-align: center; 
+            display: none; 
+        }
+        
+        .results.show { 
+            display: block; 
+            animation: fadeInPage 0.5s ease; 
+        }
+        
+        .score-circle { 
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%; 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 1.5rem; 
+            font-size: 3rem; 
+            font-weight: 700; 
+            box-shadow: var(--shadow); 
+        }
+        
+        .stats { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: 1.5rem; 
+            margin: 1.5rem 0; 
+        }
+        
+        .stat-item { 
+            background: var(--bg-secondary); 
+            padding: 1.5rem; 
+            border-radius: var(--radius-xl); 
+            text-align: center; 
+            box-shadow: var(--shadow); 
+        }
+        
+        .stat-number { 
+            font-size: 2rem; 
+            font-weight: 700; 
+            color: var(--primary); 
+            margin-bottom: 0.5rem; 
+        }
+        
+        .stat-label { 
+            font-size: 0.875rem; 
+            color: var(--text-secondary); 
+            font-weight: 600; 
+        }
+        
+        /* Words Test Section */
+        .words-question-card { 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-2xl); 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: var(--shadow); 
+            border-right: 5px solid var(--secondary); 
+        }
+        
+        .word-display { 
+            font-size: 2.5rem; 
+            font-weight: 700; 
+            text-align: center; 
+            margin: 1.5rem 0; 
+            color: var(--primary); 
+            font-family: var(--font-en); 
+            padding: 1.5rem; 
+            background: var(--bg); 
+            border-radius: var(--radius-xl); 
+            box-shadow: var(--shadow); 
+        }
+        
+        .words-option { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            padding: 1rem; 
+            background: var(--bg); 
+            border: 2px solid var(--border); 
+            border-radius: var(--radius-xl); 
+            cursor: pointer; 
+            transition: var(--transition-all); 
+            font-family: var(--font-ar); 
+            text-align: right; 
+        }
+        
+        .words-option:hover { 
+            background: var(--bg-secondary); 
+            border-color: var(--secondary); 
+            transform: translateX(-5px); 
+        }
+        
+        .words-option-letter { 
+            width: 35px; 
+            height: 35px; 
+            min-width: 35px; 
+            background: var(--secondary); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 700; 
+            flex-shrink: 0; 
+        }
+        
+        .words-option.selected { 
+            background: rgba(16, 185, 129, 0.1); 
+            border-color: var(--secondary); 
+            border-width: 3px; 
+        }
+        
+        .words-option.correct { 
+            background: rgba(16, 185, 129, 0.2); 
+            border-color: var(--secondary); 
+            border-width: 3px; 
+        }
+        
+        .words-option.correct .words-option-letter { 
+            background: var(--secondary); 
+        }
+        
+        .words-option.wrong { 
+            background: rgba(239, 68, 68, 0.2); 
+            border-color: var(--danger); 
+            border-width: 3px; 
+        }
+        
+        .words-option.wrong .words-option-letter { 
+            background: var(--danger); 
+        }
+        
+        /* Tricks Section */
+        .trick-card { 
+            background: var(--bg-secondary); 
+            border-radius: var(--radius-2xl); 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: var(--shadow); 
+            border-right: 5px solid var(--accent); 
+        }
+        
+        .trick-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.75rem; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .trick-icon { 
+            font-size: 1.75rem; 
+        }
+        
+        .trick-title { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: var(--accent); 
+        }
+        
+        .trick-analysis { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem; 
+        }
+        
+        .analysis-arabic { 
+            text-align: right; 
+            direction: rtl; 
+            padding: 1rem; 
+            background: var(--bg); 
+            border-radius: var(--radius-xl); 
+            border-right: 4px solid var(--accent); 
+            font-family: var(--font-ar); 
+        }
+        
+        .analysis-english { 
+            text-align: left; 
+            direction: ltr; 
+            padding: 1rem; 
+            background: var(--bg); 
+            border-radius: var(--radius-xl); 
+            border-left: 4px solid var(--primary); 
+            font-family: var(--font-en); 
+        }
+        
+        .developer-signature { 
+            text-align: center; 
+            margin-top: 1.5rem; 
+            padding: 1rem; 
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1)); 
+            border-radius: var(--radius-xl); 
+            border: 2px dashed var(--accent); 
+        }
+        
+        .signature-text { 
+            font-size: 1.125rem; 
+            font-weight: 700; 
+            color: var(--accent); 
+            font-style: italic; 
+        }
+        
+        /* Footer */
+        footer { 
+            background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #10B981 100%); 
+            color: white; 
+            padding: 3rem 1.5rem; 
+            margin-top: 3rem; 
+            border-top: 5px solid var(--accent); 
+            position: relative; 
+            overflow: auto; 
+        }
+        
+        footer::before { 
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%; 
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); 
+            background-size: 50px 50px; 
+            animation: moveBackground 20s linear infinite; 
+        }
+        
+        @keyframes moveBackground { 
+            0% { transform: translate(0, 0); } 
+            100% { transform: translate(50px, 50px); } 
+        }
+        
+        .footer-content { 
+            position: relative; 
+            z-index: 1; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            text-align: center; 
+        }
+        
+        .footer-title { 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .contact-links { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1.5rem; 
+            flex-wrap: wrap; 
+            margin: 3rem 0; 
+        }
+        
+        .contact-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 0.5rem; 
+            padding: 1.5rem; 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: var(--radius-2xl); 
+            color: white; 
+            text-decoration: none; 
+            transition: var(--transition-all); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 2px solid rgba(255, 255, 255, 0.2); 
+            min-width: 200px; 
+        }
+        
+        .contact-item:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            background: rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+        }
+        
+        .contact-icon { 
+            font-size: 3rem; 
+        }
+        
+        .contact-text { 
+            font-size: 1.25rem; 
+            font-weight: 800; 
+        }
+        
+        .contact-number { 
+            font-size: 1.5rem; 
+            font-weight: 900; 
+            color: #FFD700; 
+        }
+        
+        .footer-dedication { 
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: var(--radius-2xl); 
+            padding: 3rem 1.5rem; 
+            margin: 3rem auto; 
+            max-width: 900px; 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 3px solid rgba(255, 215, 0, 0.3); 
+        }
+        
+        .dedication-icon { 
+            font-size: 5rem; 
+            margin-bottom: 1rem; 
+        }
+        
+        .footer-dedication h3 { 
+            font-size: 2.5rem; 
+            margin-bottom: 1.5rem; 
+            color: #FFD700; 
+            font-weight: 900; 
+        }
+        
+        .dedication-text { 
+            font-size: 1.25rem; 
+            line-height: 2.2; 
+            font-weight: 700; 
+            font-family: var(--font-ar); 
+            text-align: center; 
+        }
+        
+        .dedication-text strong { 
+            color: #FFD700; 
+            font-size: 1.125rem; 
+        }
+        
+        .footer-developer { 
+            border-top: 3px solid rgba(255, 255, 255, 0.3); 
+            padding-top: 3rem; 
+            margin-top: 3rem; 
+        }
+        
+        .developer-line { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            margin-bottom: 1rem; 
+            font-family: var(--font-en); 
+        }
+        
+        .developer-highlight { 
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B6B 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            font-weight: 900; 
+            font-size: 1.875rem; 
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6)); 
+        }
+        
+        .university-line { 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            margin-bottom: 1rem; 
+            font-family: var(--font-en); 
+        }
+        
+        .copyright-line { 
+            font-size: 1rem; 
+            opacity: 0.9; 
+            font-family: var(--font-en); 
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 30px; 
+            background: #25D366; 
+            color: white; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 28px; 
+            box-shadow: var(--shadow); 
+            cursor: pointer; 
+            transition: var(--transition-all); 
+            z-index: 1000; 
+            text-decoration: none; 
+        }
+        
+        .whatsapp-float:hover { 
+            transform: scale(1.1); 
+        }
+        
+        /* Interactive Message */
+        .interactive-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--radius-2xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-2xl);
+            z-index: 2000;
+            display: none;
+            text-align: center;
+            max-width: 90%;
+            border: 2px solid var(--primary);
+        }
+        
+        body.dark-mode .interactive-message {
+            background: rgba(30, 41, 59, 0.95);
+            border-color: var(--primary);
+        }
+        
+        .message-content {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: var(--font-ar);
+        }
+        
+        .message-arabic {
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-family: var(--font-ar);
+        }
+        
+        .message-close {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-xl);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-all);
+        }
+        
+        .message-close:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) { 
+            .header-container { 
+                padding: 0.5rem 1rem; 
+            } 
+            
+            .main-nav { 
+                width: 100%; 
+                justify-content: center; 
+            } 
+            
+            .main-nav a { 
+                font-size: 1rem; 
+                padding: 0.75rem 1rem; 
+            } 
+        }
+        
+        @media (max-width: 768px) { 
+            html { 
+                font-size: 14px; 
+            } 
+            
+            .dual-text-row { 
+                grid-template-columns: 1fr; 
+                gap: 1rem; 
+            } 
+            
+            .english-side { 
+                grid-column: 1; 
+                order: 1; 
+            } 
+            
+            .arrow-separator { 
+                grid-column: 1; 
+                order: 2; 
+                transform: rotate(90deg); 
+                margin: 0.5rem 0; 
+            } 
+            
+            .arabic-side { 
+                grid-column: 1; 
+                order: 3; 
+            } 
+            
+            .flashcard { 
+                height: 350px; 
+            } 
+            
+            .flashcard-front h2 { 
+                font-size: 2.5rem; 
+            } 
+            
+            .flashcard-back h2 { 
+                font-size: 2rem; 
+            } 
+            
+            .flashcard-back h3 { 
+                font-size: 1.5rem; 
+            } 
+            
+            .btn-control { 
+                padding: 0.75rem 1.5rem; 
+                font-size: 1rem; 
+            } 
+            
+            .comparison-header, .comparison-row { 
+                grid-template-columns: 1fr; 
+            } 
+            
+            .contact-links { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 1rem; 
+            } 
+            
+            .contact-item { 
+                width: 100%; 
+                max-width: 300px; 
+            } 
+            
+            .footer-dedication { 
+                padding: 1.5rem 1rem; 
+            } 
+            
+            .dedication-text { 
+                font-size: 1rem; 
+            } 
+            
+            .dedication-icon { 
+                font-size: 3rem; 
+            } 
+            
+            .dual-content { 
+                grid-template-columns: 1fr; 
+            } 
+            
+            .trick-analysis { 
+                grid-template-columns: 1fr; 
+            } 
+        }
+        
+        @media (max-width: 640px) { 
+            .site-title { 
+                font-size: 1.125rem; 
+            } 
+            
+            .developer-name { 
+                font-size: 0.875rem; 
+            } 
+            
+            .main-nav a { 
+                font-size: 0.875rem; 
+                padding: 0.5rem 0.75rem; 
+            } 
+            
+            .page { 
+                padding: 100px 0.75rem 1rem; 
+            } 
+            
+            .concept-slide, .comparison-container, .review-section { 
+                padding: 1rem; 
+            } 
+            
+            .sub-concept, .professor-explanation, .practical-example, .doctor-note { 
+                padding: 1.5rem; 
+            } 
+            
+            .professor-explanation p, .practical-example p, .doctor-note p { 
+                font-size: 1rem; 
+            } 
+            
+            .numbers-container { 
+                padding: 1rem; 
+            } 
+            
+            .number-highlight { 
+                font-size: 4rem; 
+            } 
+            
+            .review-content { 
+                gap: 1rem; 
+            } 
+            
+            .question-header { 
+                flex-direction: column; 
+                align-items: flex-end; 
+                gap: 0.5rem; 
+            } 
+            
+            .question-number { 
+                order: 1; 
+            } 
+            
+            .question-text { 
+                order: 2; 
+                padding-left: 0; 
+            } 
+            
+            .word-display { 
+                font-size: 2rem; 
+            } 
+        }
+        
+        @media (max-width: 480px) { 
+            .flashcard { 
+                height: 300px; 
+            } 
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="header-container">
+            <!-- Hamburger Menu -->
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="logo-section">
+                <div class="site-title">📚 Interactive Learning Platform - Vital Signs</div>
+                <div class="developer-name">by Mohamed Salah</div>
+            </div>
+            
+            <div class="header-controls">
+                <button class="theme-toggle" id="theme-toggle"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <!-- Navigation Container -->
+            <div class="nav-container" id="nav-container">
+                <nav class="main-nav">
+                    <a href="#" data-page="page1" class="nav-link active">🎴 Flashcards</a>
+                    <a href="#" data-page="page2" class="nav-link">📖 Detailed Explanation</a>
+                    <a href="#" data-page="page3" class="nav-link">🔄 Comparisons</a>
+                    <a href="#" data-page="page4" class="nav-link">🔢 Important Numbers</a>
+                    <a href="#" data-page="page5" class="nav-link">📝 Final Review</a>
+                    <a href="#" data-page="page6" class="nav-link">❓ Question Bank</a>
+                    <a href="#" data-page="page7" class="nav-link">💡 Exam Tricks</a>
+                    <a href="#" data-page="page8" class="nav-link">📚 Words Test</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Interactive Message -->
+    <div class="interactive-message" id="interactive-message">
+        <div class="message-content">صل على النبي ﷺ</div>
+        <div class="message-arabic">Pray upon the Prophet Muhammad ﷺ</div>
+        <button class="message-close" id="message-close">Close</button>
+    </div>
+
+    <!-- Page 1: Flashcards -->
+    <div id="page1" class="page active-page">
+        <h1>🎴 Flashcards - البطاقات التعليمية</h1>
+        <div class="flashcard-section">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <h2 id="card-front-text">Vital Signs</h2>
+                    </div>
+                    <div class="flashcard-back" id="card-back">
+                        <!-- Content will be populated by JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard-counter">
+                <span id="current-card">1</span> / <span id="total-cards">20</span>
+            </div>
+            <div class="flashcard-controls-container">
+                <div class="flashcard-controls">
+                    <button id="prev-card" class="btn-control">⏮️ Previous</button>
+                    <button id="flip-card" class="btn-control">🔄 Flip</button>
+                    <button id="speak-card" class="btn-control">🔊 Speak</button>
+                    <button id="next-card" class="btn-control">Next ⏭️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Detailed Explanation -->
+    <div id="page2" class="page">
+        <h1>📖 Detailed Explanation - الشرح المفصل</h1>
+        <div class="concept-slide numbered-section" id="detailed-explanation">
+            <!-- Content will be populated by JS -->
+        </div>
+    </div>
+
+    <!-- Page 3: Comparisons -->
+    <div id="page3" class="page">
+        <h1>🔄 Key Comparisons - المقارنات الأساسية</h1>
+        <div class="comparison-container numbered-section" id="comparisons">
+            <!-- Content will be populated by JS -->
+        </div>
+    </div>
+
+    <!-- Page 4: Important Numbers -->
+    <div id="page4" class="page">
+        <h1>🔢 Important Numbers - الأرقام المهمة</h1>
+        <div class="numbers-container numbered-section" id="important-numbers">
+            <!-- Content will be populated by JS -->
+        </div>
+    </div>
+
+    <!-- Page 5: Final Review -->
+    <div id="page5" class="page">
+        <h1>📝 Final Review - المراجعة النهائية</h1>
+        <div class="review-section numbered-section" id="final-review">
+            <!-- Content will be populated by JS -->
+        </div>
+    </div>
+
+    <!-- Page 6: Question Bank -->
+    <div id="page6" class="page">
+        <h1>❓ Question Bank - بنك الأسئلة</h1>
+        <div class="quiz-container">
+            <div class="quiz-controls">
+                <div class="quiz-timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="quiz-timer">15:00</span>
+                </div>
+                <div class="quiz-stats">
+                    <div class="stat-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="answered-count">0</span>
+                        <span>مجاب</span>
+                    </div>
+                    <div class="stat-badge">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="remaining-count">15</span>
+                        <span>متبقي</span>
+                    </div>
+                </div>
+            </div>
+            <div id="quiz-questions">
+                <!-- Questions will be generated here -->
+            </div>
+            <div class="submit-section">
+                <button class="submit-btn" id="submit-quiz">
+                    <i class="fas fa-paper-plane"></i>
+                    📝 إنهاء الامتحان
+                </button>
+            </div>
+            <div id="quiz-results" class="results"></div>
+        </div>
+    </div>
+
+    <!-- Page 7: Exam Tricks -->
+    <div id="page7" class="page">
+        <h1>💡 Exam Tricks - تريكات الامتحان</h1>
+        <div id="tricks-content">
+            <!-- Tricks will be generated here -->
+        </div>
+        <div class="developer-signature">
+            <div class="signature-text">By Mohamed Salah</div>
+        </div>
+    </div>
+
+    <!-- Page 8: Words Test -->
+    <div id="page8" class="page">
+        <h1>📚 Words Test - اختبار المصطلحات</h1>
+        <div class="quiz-container">
+            <div class="quiz-controls">
+                <div class="quiz-timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="words-timer">10:00</span>
+                </div>
+                <div class="quiz-stats">
+                    <div class="stat-badge">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="words-answered-count">0</span>
+                        <span>مجاب</span>
+                    </div>
+                    <div class="stat-badge">
+                        <i class="fas fa-language"></i>
+                        <span id="words-remaining-count">10</span>
+                        <span>متبقي</span>
+                    </div>
+                </div>
+            </div>
+            <div id="words-questions">
+                <!-- Words questions will be generated here -->
+            </div>
+            <div class="submit-section">
+                <button class="submit-btn" id="submit-words">
+                    <i class="fas fa-paper-plane"></i>
+                    📝 إنهاء الاختبار
+                </button>
+            </div>
+            <div id="words-results" class="results"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3 class="footer-title">📞 Contact Us - تواصل معنا</h3>
+            <div class="contact-links">
+                <a href="https://wa.me/201121833902" target="_blank" class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <span class="contact-text">WhatsApp</span>
+                    <span class="contact-number">01121833902</span>
+                </a>
+                <a href="tel:+201012575443" class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span class="contact-text">Phone</span>
+                    <span class="contact-number">01012575443</span>
+                </a>
+                <a href="https://www.facebook.com/share/14MZDTy8cxk/" target="_blank" class="contact-item">
+                    <span class="contact-icon">👤</span>
+                    <span class="contact-text">Facebook</span>
+                    <span class="contact-number">Follow Us</span>
+                </a>
+            </div>
+            <div class="footer-dedication">
+                <div class="dedication-icon">🤲🏻</div>
+                <h3>صدقة جارية</h3>
+                <p class="dedication-text">
+                    صدقة جارية لي ولأمواتي وأموات المسلمين جميعاً وأهلي<br><br>
+                    <strong>اللهم اغفر لهم وارحمهم وعافهم واعف عنهم<br>
+                    وأكرم نزلهم ووسع مدخلهم<br>
+                    واغسلهم بالماء والثلج والبرد<br>
+                    ونقهم من الخطايا كما ينقى الثوب الأبيض من الدنس<br>
+                    وأبدلهم داراً خيراً من دارهم وأهلاً خيراً من أهلهم<br>
+                    وأدخلهم الجنة وأعذهم من عذاب القبر ومن عذاب النار<br>
+                    واجعل قبورهم روضة من رياض الجنة</strong><br><br>
+                    آمين يا رب العالمين 🤲🏻
+                </p>
+            </div>
+            <div class="footer-developer">
+                <p class="developer-line">
+                    Developed by <span class="developer-highlight">Mohamed Salah</span>
+                </p>
+                <p class="university-line">
+                    1st Nurse - KSIU (King Salman International University)
+                </p>
+                <p class="copyright-line">
+                    © 2025 - All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/201121833902" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        'use strict';
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            let currentCardIndex = 0;
+            let quizAnswers = [];
+            let wordsAnswers = [];
+            let quizTimerInterval = null;
+            let wordsTimerInterval = null;
+            let quizTimeLeft = 15 * 60; // 15 minutes
+            let wordsTimeLeft = 10 * 60; // 10 minutes
+            let selectedUsVoice = null; // To store the selected US voice
+            
+            // Flashcards data based on vital signs content
+            const flashcardsData = [
+                { 
+                    front: "Vital Signs", 
+                    back: { 
+                        term: "Vital Signs", 
+                        translation: "العلامات الحيوية", 
+                        english: "Physical indications that an individual is alive, providing baseline data about an individual's level of physical functioning.", 
+                        arabic: "مؤشرات جسدية تدل على أن الفرد على قيد الحياة، وتوفر بيانات أساسية عن مستوى الأداء الجسدي للفرد." 
+                    } 
+                },
+                { 
+                    front: "Temperature", 
+                    back: { 
+                        term: "Temperature", 
+                        translation: "درجة الحرارة", 
+                        english: "The degree of heat maintained by the body, measured in degrees Celsius or Fahrenheit.", 
+                        arabic: "درجة الحرارة التي يحافظ عليها الجسم، تقاس بالدرجات المئوية أو الفهرنهايت." 
+                    } 
+                },
+                { 
+                    front: "Pulse", 
+                    back: { 
+                        term: "Pulse", 
+                        translation: "النبض", 
+                        english: "The palpable bounding of blood flow noted at various points on the body, resulting from left ventricular contraction.", 
+                        arabic: "النبض المحسوس لتدفق الدم في نقاط مختلفة من الجسم، الناتج عن انقباض البطين الأيسر." 
+                    } 
+                },
+                { 
+                    front: "Respiration", 
+                    back: { 
+                        term: "Respiration", 
+                        translation: "التنفس", 
+                        english: "The exchange of O2 and CO2 between an organism and its environment.", 
+                        arabic: "تبادل الأكسجين وثاني أكسيد الكربون بين الكائن الحي وبيئته." 
+                    } 
+                },
+                { 
+                    front: "Blood Pressure", 
+                    back: { 
+                        term: "Blood Pressure", 
+                        translation: "ضغط الدم", 
+                        english: "The force that blood exerts against the wall of blood vessels resulting from contracting of left ventricle.", 
+                        arabic: "القوة التي يبذلها الدم ضد جدار الأوعية الدموية نتيجة انقباض البطين الأيسر." 
+                    } 
+                },
+                { 
+                    front: "Pain Assessment", 
+                    back: { 
+                        term: "Pain Assessment", 
+                        translation: "تقييم الألم", 
+                        english: "The fifth vital sign, subjective experience that requires patient self-reporting.", 
+                        arabic: "العلامة الحيوية الخامسة، تجربة ذاتية تتطلب من المريض الإبلاغ عنها بنفسه." 
+                    } 
+                },
+                { 
+                    front: "Normal Temperature Range", 
+                    back: { 
+                        term: "Normal Temperature Range", 
+                        translation: "نطاق درجة الحرارة الطبيعي", 
+                        english: "36.5-37.5°C (97.7-99.5°F) is considered the normal range for body temperature.", 
+                        arabic: "36.5-37.5 درجة مئوية (97.7-99.5 درجة فهرنهايت) يعتبر النطاق الطبيعي لدرجة حرارة الجسم." 
+                    } 
+                },
+                { 
+                    front: "Hypothermia", 
+                    back: { 
+                        term: "Hypothermia", 
+                        translation: "انخفاض حرارة الجسم", 
+                        english: "Body temperature below 36.5°C, requiring warming interventions.", 
+                        arabic: "درجة حرارة الجسم أقل من 36.5 درجة مئوية، تتطلب تدخلات للتدفئة." 
+                    } 
+                },
+                { 
+                    front: "Hyperthermia", 
+                    back: { 
+                        term: "Hyperthermia", 
+                        translation: "ارتفاع حرارة الجسم", 
+                        english: "Body temperature between 37.5-38.5°C, indicating mild fever.", 
+                        arabic: "درجة حرارة الجسم بين 37.5-38.5 درجة مئوية، تشير إلى حمى خفيفة." 
+                    } 
+                },
+                { 
+                    front: "Fever", 
+                    back: { 
+                        term: "Fever", 
+                        translation: "الحمى", 
+                        english: "Body temperature between 38.5-39.5°C, indicating moderate fever.", 
+                        arabic: "درجة حرارة الجسم بين 38.5-39.5 درجة مئوية، تشير إلى حمى متوسطة." 
+                    } 
+                },
+                { 
+                    front: "Pyrexia", 
+                    back: { 
+                        term: "Pyrexia", 
+                        translation: "الحمى الشديدة", 
+                        english: "Body temperature above 39.5°C, indicating high fever requiring medical attention.", 
+                        arabic: "درجة حرارة الجسم فوق 39.5 درجة مئوية، تشير إلى حمى عالية تتطلب عناية طبية." 
+                    } 
+                },
+                { 
+                    front: "Normal Pulse Rate", 
+                    back: { 
+                        term: "Normal Pulse Rate", 
+                        translation: "معدل النبض الطبيعي", 
+                        english: "60-100 beats per minute for adults, indicating normal cardiac function.", 
+                        arabic: "60-100 نبضة في الدقيقة للبالغين، تشير إلى وظيفة قلبية طبيعية." 
+                    } 
+                },
+                { 
+                    front: "Tachycardia", 
+                    back: { 
+                        term: "Tachycardia", 
+                        translation: "تسرع القلب", 
+                        english: "Pulse rate above 100 beats per minute, indicating increased cardiac activity.", 
+                        arabic: "معدل النبض فوق 100 نبضة في الدقيقة، يشير إلى زيادة النشاط القلبي." 
+                    } 
+                },
+                { 
+                    front: "Bradycardia", 
+                    back: { 
+                        term: "Bradycardia", 
+                        translation: "بطء القلب", 
+                        english: "Pulse rate below 60 beats per minute, indicating decreased cardiac activity.", 
+                        arabic: "معدل النبض أقل من 60 نبضة في الدقيقة، يشير إلى انخفاض النشاط القلبي." 
+                    } 
+                },
+                { 
+                    front: "Normal Respiration Rate", 
+                    back: { 
+                        term: "Normal Respiration Rate", 
+                        translation: "معدل التنفس الطبيعي", 
+                        english: "16-24 breaths per minute for adults, indicating normal respiratory function.", 
+                        arabic: "16-24 نفسًا في الدقيقة للبالغين، يشير إلى وظيفة تنفسية طبيعية." 
+                    } 
+                },
+                { 
+                    front: "Tachypnea", 
+                    back: { 
+                        term: "Tachypnea", 
+                        translation: "تسرع التنفس", 
+                        english: "Abnormally rapid respiratory rate, indicating respiratory distress.", 
+                        arabic: "معدل تنفس غير طبيعي سريع، يشير إلى ضائقة تنفسية." 
+                    } 
+                },
+                { 
+                    front: "Normal Blood Pressure", 
+                    back: { 
+                        term: "Normal Blood Pressure", 
+                        translation: "ضغط الدم الطبيعي", 
+                        english: "120/80 ± 20/15 mmHg for adults, indicating normal cardiovascular function.", 
+                        arabic: "120/80 ± 20/15 مم زئبق للبالغين، يشير إلى وظيفة قلبية وعائية طبيعية." 
+                    } 
+                },
+                { 
+                    front: "Hypertension", 
+                    back: { 
+                        term: "Hypertension", 
+                        translation: "ارتفاع ضغط الدم", 
+                        english: "Blood pressure above 140/95 mmHg, indicating increased cardiovascular risk.", 
+                        arabic: "ضغط الدم فوق 140/95 مم زئبق، يشير إلى زيادة خطر القلب والأوعية الدموية." 
+                    } 
+                },
+                { 
+                    front: "Hypotension", 
+                    back: { 
+                        term: "Hypotension", 
+                        translation: "انخفاض ضغط الدم", 
+                        english: "Blood pressure below 100/65 mmHg, indicating potential circulatory problems.", 
+                        arabic: "ضغط الدم أقل من 100/65 مم زئبق، يشير إلى مشاكل دورانية محتملة." 
+                    } 
+                },
+                { 
+                    front: "Orthostatic Hypotension", 
+                    back: { 
+                        term: "Orthostatic Hypotension", 
+                        translation: "انخفاض ضغط الدم الانتصابي", 
+                        english: "Blood pressure drop when changing position from lying to standing, causing dizziness.", 
+                        arabic: "انخفاض ضغط الدم عند تغيير الوضع من الاستلقاء إلى الوقوف، يسبب الدوار." 
+                    } 
+                }
+            ];
+            
+            // Quiz data with difficulty levels
+            const quizData = [
+                // Easy questions (5)
+                { 
+                    question: "What is the normal range for body temperature?", 
+                    options: ["35-36°C", "36.5-37.5°C", "38-39°C", "40-41°C"], 
+                    correct: 1, 
+                    difficulty: "easy",
+                    explanation: { 
+                        english: "Normal body temperature typically ranges from 36.5 to 37.5°C (97.7 to 99.5°F).", 
+                        arabic: "درجة حرارة الجسم الطبيعية تتراوح عادة من 36.5 إلى 37.5 درجة مئوية (97.7 إلى 99.5 درجة فهرنهايت)." 
+                    } 
+                },
+                { 
+                    question: "Which of the following is NOT one of the primary vital signs?", 
+                    options: ["Temperature", "Pulse", "Respiration", "Height"], 
+                    correct: 3, 
+                    difficulty: "easy",
+                    explanation: { 
+                        english: "The primary vital signs are temperature, pulse, respiration, and blood pressure. Height is not considered a vital sign.", 
+                        arabic: "العلامات الحيوية الأساسية هي درجة الحرارة، والنبض، والتنفس، وضغط الدم. الطول لا يعتبر علامة حيوية." 
+                    } 
+                },
+                { 
+                    question: "What is the normal range for adult pulse rate?", 
+                    options: ["30-50 bpm", "60-100 bpm", "110-130 bpm", "140-160 bpm"], 
+                    correct: 1, 
+                    difficulty: "easy",
+                    explanation: { 
+                        english: "The normal range for adult pulse rate is 60-100 beats per minute (bpm).", 
+                        arabic: "النطاق الطبيعي لمعدل نبض البالغين هو 60-100 نبضة في الدقيقة." 
+                    } 
+                },
+                { 
+                    question: "Which term describes an elevated body temperature?", 
+                    options: ["Hypothermia", "Hyperthermia", "Hypotension", "Bradycardia"], 
+                    correct: 1, 
+                    difficulty: "easy",
+                    explanation: { 
+                        english: "Hyperthermia refers to an elevated body temperature above the normal range.", 
+                        arabic: "ارتفاع حرارة الجسم يشير إلى درجة حرارة الجسم المرتفعة فوق النطاق الطبيعي." 
+                    } 
+                },
+                { 
+                    question: "What is the normal range for adult respiration rate?", 
+                    options: ["8-12 breaths/min", "16-24 breaths/min", "30-40 breaths/min", "50-60 breaths/min"], 
+                    correct: 1, 
+                    difficulty: "easy",
+                    explanation: { 
+                        english: "The normal range for adult respiration rate is 16-24 breaths per minute.", 
+                        arabic: "النطاق الطبيعي لمعدل تنفس البالغين هو 16-24 نفسًا في الدقيقة." 
+                    } 
+                },
+                // Medium questions (5)
+                { 
+                    question: "Which of the following is a contraindication for taking oral temperature?", 
+                    options: ["Alert patient", "Recent oral surgery", "Normal breathing", "Cooperative patient"], 
+                    correct: 1, 
+                    difficulty: "medium",
+                    explanation: { 
+                        english: "Recent oral surgery is a contraindication for taking oral temperature as it may cause pain or injury.", 
+                        arabic: "الجراحة الفموية الحديثة هي موانع لأخذ درجة حرارة الفم لأنها قد تسبب الألم أو الإصابة." 
+                    } 
+                },
+                { 
+                    question: "What is the relationship between temperature increase and pulse rate?", 
+                    options: ["No relationship", "Pulse decreases as temperature increases", "Pulse increases 10 bpm for each 1°C increase", "Pulse increases 50 bpm for each 1°C increase"], 
+                    correct: 2, 
+                    difficulty: "medium",
+                    explanation: { 
+                        english: "For each 1°C increase in body temperature, the pulse rate increases by approximately 10 beats per minute.", 
+                        arabic: "لكل زيادة بمقدار 1 درجة مئوية في درجة حرارة الجسم، يزداد معدل النبض بحوالي 10 نبضات في الدقيقة." 
+                    } 
+                },
+                { 
+                    question: "Which of the following is a method of heat loss from the body?", 
+                    options: ["Radiation", "Conduction", "Convection", "All of the above"], 
+                    correct: 3, 
+                    difficulty: "medium",
+                    explanation: { 
+                        english: "Radiation, conduction, and convection are all methods of heat loss from the body.", 
+                        arabic: "الإشعاع والتوصيل والحمل كلها طرق لفقدان الحرارة من الجسم." 
+                    } 
+                },
+                { 
+                    question: "What is the normal range for adult blood pressure?", 
+                    options: ["80/50 mmHg", "120/80 ± 20/15 mmHg", "160/100 mmHg", "200/120 mmHg"], 
+                    correct: 1, 
+                    difficulty: "medium",
+                    explanation: { 
+                        english: "The normal range for adult blood pressure is 120/80 ± 20/15 mmHg.", 
+                        arabic: "النطاق الطبيعي لضغط دم البالغين هو 120/80 ± 20/15 مم زئبق." 
+                    } 
+                },
+                { 
+                    question: "Which of the following is a sign of fever?", 
+                    options: ["Decreased heart rate", "Flushed face", "Increased appetite", "Low blood pressure"], 
+                    correct: 1, 
+                    difficulty: "medium",
+                    explanation: { 
+                        english: "Flushed face is a common sign of fever, along with increased heart rate, dry mouth, and shivering.", 
+                        arabic: "الوجه المحمر هو علامة شائعة للحمى، إلى جانب زيادة معدل ضربات القلب، وجفاف الفم، والرعشة." 
+                    } 
+                },
+                // Hard questions (5)
+                { 
+                    question: "A patient has a temperature of 38.5°C, pulse of 110 bpm, and respiration of 30 breaths/min. What is the most likely interpretation?", 
+                    options: ["Normal vital signs", "Mild fever with compensatory responses", "Severe hypothermia", "Cardiac arrest"], 
+                    correct: 1, 
+                    difficulty: "hard",
+                    explanation: { 
+                        english: "The patient has a mild fever (38.5°C) with compensatory increases in pulse (110 bpm) and respiration (30 breaths/min) as expected with the relationship between temperature and other vital signs.", 
+                        arabic: "المريض يعاني من حمى خفيفة (38.5 درجة مئوية) مع زيادات تعويضية في النبض (110 نبضة في الدقيقة) والتنفس (30 نفسًا في الدقيقة) كما هو متوقع مع العلاقة بين درجة الحرارة والعلامات الحيوية الأخرى." 
+                    } 
+                },
+                { 
+                    question: "Which of the following is the most appropriate nursing intervention for a patient with a temperature of 39.5°C?", 
+                    options: ["Apply warm blankets", "Increase room temperature", "Administer antipyretic medication as ordered", "Restrict fluid intake"], 
+                    correct: 2, 
+                    difficulty: "hard",
+                    explanation: { 
+                        english: "For a patient with a temperature of 39.5°C (fever), administering antipyretic medication as ordered is the most appropriate intervention to reduce temperature.", 
+                        arabic: "لمريض بدرجة حرارة 39.5 درجة مئوية (حمى)، إدارة الأدوية الخافضة للحرارة حسب التوجيهات هو التدخل الأنسب لخفض درجة الحرارة." 
+                    } 
+                },
+                { 
+                    question: "Which of the following patients would be at highest risk for developing orthostatic hypotension?", 
+                    options: ["A 25-year-old athlete", "A 45-year-old on bed rest for 3 days", "A 30-year-old with a sprained ankle", "A 50-year-old who exercises daily"], 
+                    correct: 1, 
+                    difficulty: "hard",
+                    explanation: { 
+                        english: "A patient on bed rest for 3 days would be at highest risk for orthostatic hypotension due to deconditioning of the cardiovascular system and potential fluid shifts.", 
+                        arabic: "المريض الذي يرقد في السرير لمدة 3 أيام سيكون في أعلى خطر لانخفاض ضغط الدم الانتصابي بسبب سوء تكيف الجهاز القلبي الوعائي والتحولات المحتملة في السوائل." 
+                    } 
+                },
+                { 
+                    question: "Which of the following is the most accurate method for measuring core body temperature?", 
+                    options: ["Oral", "Axillary", "Rectal", "Tympanic"], 
+                    correct: 2, 
+                    difficulty: "hard",
+                    explanation: { 
+                        english: "Rectal temperature measurement is considered the most accurate method for measuring core body temperature, though it has specific contraindications.", 
+                        arabic: "قياس درجة حرارة المستقيم يعتبر الطريقة الأكثر دقة لقياس درجة حرارة الجسم الأساسية، على الرغم من أن له موانع محددة." 
+                    } 
+                },
+                { 
+                    question: "A patient's blood pressure drops from 130/80 mmHg while lying down to 90/60 mmHg upon standing. The patient complains of dizziness. What is the most appropriate nursing action?", 
+                    options: ["Encourage the patient to walk around", "Assist the patient to lie down immediately", "Document the findings and continue monitoring", "Administer a diuretic medication"], 
+                    correct: 1, 
+                    difficulty: "hard",
+                    explanation: { 
+                        english: "The patient is experiencing orthostatic hypotension with symptoms (dizziness). The most appropriate action is to assist the patient to lie down immediately to prevent falls and restore cerebral perfusion.", 
+                        arabic: "المريض يعاني من انخفاض ضغط الدم الانتصابي مع أعراض (دوار). الإجراء الأنسب هو مساعدة المريض على الاستلقاء فورًا لمنع السقوط واستعادة التروية الدماغية." 
+                    } 
+                }
+            ];
+            
+            // Words test data
+            const wordsData = [
+                { 
+                    word: "Vital Signs", 
+                    options: ["العلامات الحيوية", "الأعراض", "التشخيص", "العلاج"], 
+                    correct: 0 
+                },
+                { 
+                    word: "Temperature", 
+                    options: ["الضغط", "النبض", "درجة الحرارة", "التنفس"], 
+                    correct: 2 
+                },
+                { 
+                    word: "Pulse", 
+                    options: ["التنفس", "النبض", "الضغط", "الألم"], 
+                    correct: 1 
+                },
+                { 
+                    word: "Respiration", 
+                    options: ["النبض", "الضغط", "الألم", "التنفس"], 
+                    correct: 3 
+                },
+                { 
+                    word: "Blood Pressure", 
+                    options: ["ضغط الدم", "معدل النبض", "درجة الحرارة", "معدل التنفس"], 
+                    correct: 0 
+                },
+                { 
+                    word: "Hypertension", 
+                    options: ["انخفاض ضغط الدم", "ارتفاع ضغط الدم", "انخفاض حرارة الجسم", "ارتفاع حرارة الجسم"], 
+                    correct: 1 
+                },
+                { 
+                    word: "Hypotension", 
+                    options: ["انخفاض ضغط الدم", "ارتفاع ضغط الدم", "انخفاض حرارة الجسم", "ارتفاع حرارة الجسم"], 
+                    correct: 0 
+                },
+                { 
+                    word: "Tachycardia", 
+                    options: ["بطء القلب", "تسرع التنفس", "تسرع القلب", "بطء التنفس"], 
+                    correct: 2 
+                },
+                { 
+                    word: "Bradycardia", 
+                    options: ["بطء القلب", "تسرع التنفس", "تسرع القلب", "بطء التنفس"], 
+                    correct: 0 
+                },
+                { 
+                    word: "Fever", 
+                    options: ["انخفاض حرارة الجسم", "ارتفاع ضغط الدم", "الحمى", "انخفاض ضغط الدم"], 
+                    correct: 2 
+                }
+            ];
+            
+            // Detailed explanation content
+            const detailedExplanationContent = [
+                {
+                    title: "Introduction to Vital Signs",
+                    titleArabic: "مقدمة في العلامات الحيوية",
+                    content: [
+                        {
+                            type: "dual-text-row",
+                            english: "<span class=\"highlight highlight-2\">Vital signs</span> are physical indications that an individual is alive. They provide baseline data about an individual's level of physical functioning and are essential for assessing health status.",
+                            arabic: "<span class=\"highlight highlight-2\">العلامات الحيوية</span> هي مؤشرات جسدية تدل على أن الفرد على قيد الحياة. توفر بيانات أساسية عن مستوى الأداء الجسدي للفرد وهي ضرورية لتقييم الحالة الصحية."
+                        },
+                        {
+                            type: "professor-explanation",
+                            title: "Professor's Explanation",
+                            content: "Vital signs are fundamental to nursing assessment and provide critical information about a patient's physiological status. The five primary vital signs are temperature, pulse, respiration, blood pressure, and pain. Regular monitoring of these signs helps healthcare providers detect changes in a patient's condition early and intervene appropriately.",
+                            contentArabic: "العلامات الحيوية أساسية لتقييم التمريض وتوفر معلومات حاسمة عن الحالة الفسيولوجية للمريض. العلامات الحيوية الخمسة الأساسية هي درجة الحرارة، والنبض، والتنفس، وضغط الدم، والألم. المراقبة المنتظمة لهذه العلامات تساعد مقدمي الرعاية الصحية على اكتشاف التغيرات في حالة المريض مبكرًا والتدخل بشكل مناسب."
+                        },
+                        {
+                            type: "practical-example",
+                            title: "Practical Example",
+                            content: "When a nurse admits a patient to the hospital, one of the first assessments is measuring vital signs. These baseline measurements provide a reference point for all future comparisons. For example, if a patient's normal blood pressure is 110/70 mmHg, a reading of 160/95 mmHg would indicate a significant change requiring immediate attention.",
+                            contentArabic: "عندما تقبل الممرضة مريضًا في المستشفى، أحد التقييمات الأولى هو قياس العلامات الحيوية. توفر هذه القياسات الأساسية نقطة مرجعية لجميع المقارنات المستقبلية. على سبيل المثال، إذا كان ضغط الدم الطبيعي للمريض 110/70 مم زئبق، فإن قراءة 160/95 مم زئبق ستشير إلى تغيير كبير يتطلب اهتمامًا فوريًا."
+                        },
+                        {
+                            type: "doctor-note",
+                            title: "Doctor's Note",
+                            content: "Vital signs should be taken according to specific indications: on admission and discharge, according to medical prescription, once per shift when patient is stable, every 4 hours when one or more vital signs is abnormal, when any abnormality is suspected, before/during/after blood transfusion, and before administering medications that affect vital signs.",
+                            contentArabic: "يجب أخذ العلامات الحيوية وفقًا لمؤشرات محددة: عند القبول والخروج، وفقًا للوصفة الطبية، مرة واحدة في كل نوبة عندما يكون المريض مستقرًا، كل 4 ساعات عندما تكون علامة حيوية واحدة أو أكثر غير طبيعية، عند الشك في أي خلل، قبل/أثناء/بعد نقل الدم، وقبل إدارة الأدوية التي تؤثر على العلامات الحيوية."
+                        }
+                    ]
+                },
+                {
+                    title: "Temperature Assessment",
+                    titleArabic: "تقييم درجة الحرارة",
+                    content: [
+                        {
+                            type: "dual-text-row",
+                            english: "<span class=\"highlight highlight-1\">Temperature</span> is the degree of heat maintained by the body. It is the balance between heat production and heat loss, measured in degrees Celsius or Fahrenheit.",
+                            arabic: "<span class=\"highlight highlight-1\">درجة الحرارة</span> هي درجة الحرارة التي يحافظ عليها الجسم. هي التوازن بين إنتاج الحرارة وفقدان الحرارة، تقاس بالدرجات المئوية أو الفهرنهايت."
+                        },
+                        {
+                            type: "dual-text-row",
+                            english: "The normal range for body temperature is <span class=\"highlight highlight-3\">36.5-37.5°C</span>. Temperature alterations include hypothermia (<36.5°C), hyperthermia (37.5-38.5°C), fever (38.5-39.5°C), and pyrexia (>39.5°C).",
+                            arabic: "النطاق الطبيعي لدرجة حرارة الجسم هو <span class=\"highlight highlight-3\">36.5-37.5 درجة مئوية</span>. تشمل تغيرات درجة الحرارة انخفاض حرارة الجسم (<36.5 درجة مئوية)، وارتفاع حرارة الجسم (37.5-38.5 درجة مئوية)، والحمى (38.5-39.5 درجة مئوية)، والحمى الشديدة (>39.5 درجة مئوية)."
+                        },
+                        {
+                            type: "professor-explanation",
+                            title: "Professor's Explanation",
+                            content: "The hypothalamus serves as the body's thermostat, regulating temperature through various mechanisms. Heat loss occurs through radiation, conduction, and convection. When body temperature rises, the hypothalamus initiates cooling mechanisms like sweating and vasodilation. When temperature falls, it initiates warming mechanisms like shivering and vasoconstriction.",
+                            contentArabic: "يعمل تحت المهاد كمنظم حرارة للجسم، ينظم درجة الحرارة من خلال آليات مختلفة. يحدث فقدان الحرارة من خلال الإشعاع والتوصيل والحمل. عندما ترتفع درجة حرارة الجسم، يبدأ تحت المهاد آليات التبريد مثل التعرق وتوسع الأوعية. عندما تنخفض درجة الحرارة، يبدأ آليات التدفئة مثل الارتعاش وتضيق الأوعية."
+                        },
+                        {
+                            type: "practical-example",
+                            title: "Practical Example",
+                            content: "A patient with a temperature of 38.5°C requires nursing interventions including checking temperature every 15 minutes for the first hour, then every 30 minutes for the second hour, then hourly. The nurse should increase fluid intake to 3L/day, provide cold drinks, encourage frequent mouth washes, give a bath, ensure good ventilation, decrease covers, apply cold compresses, and administer antipyretic medications as ordered.",
+                            contentArabic: "مريض بدرجة حرارة 38.5 درجة مئوية يتطلب تدخلات تمريضية تشمل فحص درجة الحرارة كل 15 دقيقة في الساعة الأولى، ثم كل 30 دقيقة في الساعة الثانية، ثم كل ساعة. يجب على الممرضة زيادة تناول السوائل إلى 3 لترات يوميًا، وتقديم المشروبات الباردة، وتشجيع غسول الفم المتكرر، وإعطاء حمام، وضمان تهوية جيدة، وتقليل الأغطية، وتطبيق ضمادات باردة، وإدارة الأدوية الخافضة للحرارة حسب التوجيهات."
+                        },
+                        {
+                            type: "doctor-note",
+                            title: "Doctor's Note",
+                            content: "Fever is actually a protective response that enhances immune function and makes the body less hospitable to pathogens. However, extremely high temperatures (>41°C) can cause protein denaturation and cellular damage. When managing fever, it's important to treat the patient's comfort rather than just the number on the thermometer.",
+                            contentArabic: "الحمى هي في الواقع استجابة وقائية تعزز وظيفة المناعة وتجعل الجسم أقل ملاءمة للكائنات الممرضة. ومع ذلك، درجات الحرارة المرتفعة جدًا (>41 درجة مئوية) يمكن أن تسبب تبريد البروتين وتلف الخلايا. عند إدارة الحمى، من المهم علاج راحة المريض بدلاً من مجرد الرقم على مقياس الحرارة."
+                        }
+                    ]
+                },
+                {
+                    title: "Pulse Assessment",
+                    titleArabic: "تقييم النبض",
+                    content: [
+                        {
+                            type: "dual-text-row",
+                            english: "<span class=\"highlight highlight-blood\">Pulse</span> is the palpable bounding of blood flow noted at various points on the body, resulting from left ventricular contraction. It's an indicator of the circulatory status.",
+                            arabic: "<span class=\"highlight highlight-blood\">النبض</span> هو النبض المحسوس لتدفق الدم في نقاط مختلفة من الجسم، الناتج عن انقباض البطين الأيسر. هو مؤشر للحالة الدورانية."
+                        },
+                        {
+                            type: "dual-text-row",
+                            english: "The normal range for adult pulse is <span class=\"highlight highlight-2\">60-100 bpm</span>. Pulse characteristics include rate, rhythm, and volume. Tachycardia (>100 bpm) and bradycardia (<60 bpm) indicate abnormalities.",
+                            arabic: "النطاق الطبيعي لنبض البالغين هو <span class=\"highlight highlight-2\">60-100 نبضة في الدقيقة</span>. تشمل خصائص النبض المعدل والإيقاع والحجم. تسرع القلب (>100 نبضة في الدقيقة) وبطء القلب (<60 نبضة في الدقيقة) يشيران إلى وجود خلل."
+                        },
+                        {
+                            type: "professor-explanation",
+                            title: "Professor's Explanation",
+                            content: "Pulse can be assessed at various sites including radial, carotid, temporal, brachial, femoral, popliteal, posterior tibial, and dorsalis pedis arteries. The radial artery is most commonly used. When assessing pulse, count for a full minute if irregular, or for 30 seconds and multiply by 2 if regular. Pulse deficit is the difference between apical and radial pulse and should be less than 5-10 bpm.",
+                            contentArabic: "يمكن تقييم النبض في مواقع مختلفة بما في ذلك الشريان الكعبري والسباتي والصدغي والعضدي والفخذي والركبي الشظوي والشريان الظاهري للقدم. الشريان الكعبري هو الأكثر استخدامًا. عند تقييم النبض، عد لمدة دقيقة كاملة إذا كان غير منتظم، أو لمدة 30 ثانية واضرب في 2 إذا كان منتظمًا. عجز النبض هو الفرق بين النبض القمي والنبض الكعبري ويجب أن يكون أقل من 5-10 نبضة في الدقيقة."
+                        },
+                        {
+                            type: "practical-example",
+                            title: "Practical Example",
+                            content: "A patient with a fever of 38.5°C has a pulse of 110 bpm. This is expected as pulse rate increases approximately 10 bpm for each 1°C increase in body temperature. The nurse should document this finding and continue monitoring both temperature and pulse to assess the effectiveness of interventions.",
+                            contentArabic: "مريض بحمى 38.5 درجة مئوية لديه نبض 110 نبضة في الدقيقة. هذا متوقع حيث يزداد معدل النبض بحوالي 10 نبضات في الدقيقة لكل زيادة بمقدار 1 درجة مئوية في درجة حرارة الجسم. يجب على الممرضة توثيق هذا النتيجة ومواصلة مراقبة كل من درجة الحرارة والنبض لتقييم فعالية التدخلات."
+                        },
+                        {
+                            type: "doctor-note",
+                            title: "Doctor's Note",
+                            content: "Several factors affect pulse rate including age, exercise, stress, emotions, position, metabolism, pain, caffeine, fever, bleeding, and certain medications. Nurses should consider these factors when interpreting pulse readings and identifying significant changes from the patient's baseline.",
+                            contentArabic: "العديد من العوامل تؤثر على معدل النبض بما في ذلك العمر والتمرين والإجهاد والعواطف والموقف والأيض والألم والكافيين والحمى والنزيف وبعض الأدوية. يجب على الممرضين مراعاة هذه العوامل عند تفسير قراءات النبض وتحديد التغيرات الهامة عن خط الأساس للمريض."
+                        }
+                    ]
+                },
+                {
+                    title: "Respiration Assessment",
+                    titleArabic: "تقييم التنفس",
+                    content: [
+                        {
+                            type: "dual-text-row",
+                            english: "<span class=\"highlight highlight-blue\">Respiration</span> is the exchange of O2 and CO2 between an organism and its environment. It includes inspiration (breathing in) and expiration (breathing out).",
+                            arabic: "<span class=\"highlight highlight-blue\">التنفس</span> هو تبادل الأكسجين وثاني أكسيد الكربون بين الكائن الحي وبيئته. يشمل الشهيق (التنفس للداخل) والزفير (التنفس للخارج)."
+                        },
+                        {
+                            type: "dual-text-row",
+                            english: "The normal range for adult respiration is <span class=\"highlight highlight-3\">16-24 breaths per minute</span>. Respiration characteristics include rate, rhythm, and depth. Abnormal respirations include hypoventilation, dyspnea, tachypnea, wheezes, rhonchi, stridor, and orthopnea.",
+                            arabic: "النطاق الطبيعي لتنفس البالغين هو <span class=\"highlight highlight-3\">16-24 نفسًا في الدقيقة</span>. تشمل خصائص التنفس المعدل والإيقاع والعمق. التنفس غير الطبيعي يشمل نقص التهوية، وضيق التنفس، وتسرع التنفس، والصفير، والخراخرة، والصرير، وضيق التنفس الانتصابي."
+                        },
+                        {
+                            type: "professor-explanation",
+                            title: "Professor's Explanation",
+                            content: "The medulla oblongata in the brain is the primary respiratory control center. Ventilation requires a patent airway, intact nervous system, and intact musculature. The major muscles of ventilation include the diaphragm, intercostal muscles, and accessory muscles. During inspiration, the external intercostal muscles contract and the diaphragm moves down, creating negative pressure. During expiration, these muscles relax, allowing the lungs to recoil.",
+                            arabic: "النخاع المستطيل في الدماغ هو مركز التحكم التنفسي الأساسي. يتطلب التهوية مجرى هوائي مفتوح وجهاز عصبي سليم وعضلات سليمة. تشمل العضلات الرئيسية للتهوية الحجاب الحاجز والعضلات بين الضلوع والعضلات الإضافية. أثناء الشهق، تنقبض العضلات بين الضلوع الخارجية ويتحرك الحجاب الحاجز لأسفل، مما يخلق ضغطًا سلبيًا. أثناء الزفير، ترتخي هذه العضلات، مما يسمح للرئتين بالارتداد."
+                        },
+                        {
+                            type: "practical-example",
+                            title: "Practical Example",
+                            content: "A patient with a temperature of 38.5°C has a respiratory rate of 30 breaths per minute. This is expected as respiration rate increases approximately 4 breaths per minute for each 1°C increase in body temperature. The nurse should assess for other signs of respiratory distress and monitor the effectiveness of interventions.",
+                            arabic: "مريض بدرجة حرارة 38.5 درجة مئوية لديه معدل تنفس 30 نفسًا في الدقيقة. هذا متوقع حيث يزداد معدل التنفس بحوالي 4 أنفاس في الدقيقة لكل زيادة بمقدار 1 درجة مئوية في درجة حرارة الجسم. يجب على الممرضة تقييم علامات أخرى للضائقة التنفسية ومراقبة فعالية التدخلات."
+                        },
+                        {
+                            type: "doctor-note",
+                            title: "Doctor's Note",
+                            content: "Several factors affect respiration rate including age, drugs, exercise, stress, fear, fever, disease, smoking, and pain. Nurses should be aware of normal and abnormal breathing patterns and sounds to detect respiratory problems early. Abnormal sounds like wheezes, rhonchi, or stridor indicate specific airway problems that require intervention.",
+                            arabic: "العديد من العوامل تؤثر على معدل التنفس بما في ذلك العمر والأدوية والتمرين والإجهاد والخوف والحمى والمرض والتدخين والألم. يجب على الممرضين أن يكونوا على دراية بأنماط التنفس والأصوات الطبيعية وغير الطبيعية لاكتشاف مشاكل الجهاز التنفسي مبكرًا. الأصوات غير الطبيعية مثل الصفير أو الخراخرة أو الصرير تشير إلى مشاكل محددة في مجرى الهواء تتطلب التدخل."
+                        }
+                    ]
+                },
+                {
+                    title: "Blood Pressure Assessment",
+                    titleArabic: "تقييم ضغط الدم",
+                    content: [
+                        {
+                            type: "dual-text-row",
+                            english: "<span class=\"highlight highlight-blood\">Blood pressure</span> is the force that blood exerts against the wall of blood vessels resulting from contracting of left ventricle. It consists of systolic pressure (during contraction) and diastolic pressure (during relaxation).",
+                            arabic: "<span class=\"highlight highlight-blood\">ضغط الدم</span> هو القوة التي يبذلها الدم ضد جدار الأوعية الدموية نتيجة انقباض البطين الأيسر. يتكون من ضغط انقباضي (أثناء الانقباض) وضغط انبساطي (أثناء الاسترخاء)."
+                        },
+                        {
+                            type: "dual-text-row",
+                            english: "The normal range for adult blood pressure is <span class=\"highlight highlight-3\">120/80 ± 20/15 mmHg</span>. Hypertension (>140/95 mmHg) and hypotension (<100/65 mmHg) indicate abnormalities. Orthostatic hypotension occurs when changing position from lying to standing.",
+                            arabic: "النطاق الطبيعي لضغط دم البالغين هو <span class=\"highlight highlight-3\">120/80 ± 20/15 مم زئبق</span>. ارتفاع ضغط الدم (>140/95 مم زئبق) وانخفاض ضغط الدم (<100/65 مم زئبق) يشيران إلى وجود خلل. يحدث انخفاض ضغط الدم الانتصابي عند تغيير الوضع من الاستلقاء إلى الوقوف."
+                        },
+                        {
+                            type: "professor-explanation",
+                            title: "Professor's Explanation",
+                            content: "Blood pressure is regulated by multiple factors including cardiac output, peripheral resistance, blood volume, blood viscosity, and elasticity of vessel walls. Several factors increase blood pressure including age, sympathetic activity (anxiety, pain, stress, exercise), position, diet (salty, fatty foods), exercise, alcohol, smoking, certain diseases, and some medications. Factors that decrease blood pressure include fasting, night time, hot weather, certain medications, and some diseases.",
+                            arabic: "ينظم ضغط الدم عوامل متعددة بما في ذلك النتاج القلبي والمقاومة الطرفية وحجم الدم ولزوجة الدم ومرونة جدران الأوعية. عدة عوامل تزيد من ضغط الدم بما في ذلك العمر والنشاط الودي (القلق والألم والإجهاد والتمرين) والموقف والنظام الغذائي (الأطعمة المالحة والدسمة) والتمرين والكحول والتدخين وبعض الأمراض وبعض الأدوية. العوامل التي تنقص ضغط الدم تشمل الصيام والوقت الليلي والطقس الحار وبعض الأدوية وبعض الأمراض."
+                        },
+                        {
+                            type: "practical-example",
+                            title: "Practical Example",
+                            content: "A patient's blood pressure is 160/95 mmHg while lying down and drops to 90/60 mmHg upon standing. The patient complains of dizziness. This indicates orthostatic hypotension. The nurse should assist the patient to lie down immediately, monitor vital signs, and implement interventions to prevent falls.",
+                            arabic: "ضغط دم المريض هو 160/95 مم زئبق أثناء الاستلقاء وينخفض إلى 90/60 مم زئبق عند الوقوف. يشكو المريض من الدوار. هذا يشير إلى انخفاض ضغط الدم الانتصابي. يجب على الممرضة مساعدة المريض على الاستلقاء فورًا، ومراقبة العلامات الحيوية، وتنفيذ تدخلات لمنع السقوط."
+                        },
+                        {
+                            type: "doctor-note",
+                            title: "Doctor's Note",
+                            content: "When measuring blood pressure, ensure proper technique: patient at rest for 5 minutes, feet flat on floor, back supported, arm at heart level, correct cuff size, and no caffeine/exercise/smoking for 30 minutes prior. For accurate diagnosis of hypertension, multiple readings on different occasions are needed. White coat hypertension (elevated BP in clinical setting but normal elsewhere) should be considered.",
+                            arabic: "عند قياس ضغط الدم، تأكد من التقنية الصحيحة: المريض في حالة راحة لمدة 5 دقائق، القدمين مسطحتين على الأرض، الظهر مدعوم، الذراع على مستوى القلب، حجم الكفة الصحيح، ولا كافيين/تمرين/تدخين لمدة 30 دقيقة قبل. للتشخيص الدقيق لارتفاع ضغط الدم، هناك حاجة إلى قراءات متعددة في مناسبات مختلفة. يجب النظر في ارتفاع ضغط الدم المعطف الأبيض (ارتفاع ضغط الدم في الإعداد السريري ولكن طبيعي في أماكن أخرى)."
+                        }
+                    ]
+                },
+                {
+                    title: "Pain Assessment",
+                    titleArabic: "تقييم الألم",
+                    content: [
+                        {
+                            type: "dual-text-row",
+                            english: "<span class=\"highlight highlight-pink\">Pain</span> is considered the fifth vital sign. It is a subjective experience that requires patient self-reporting. Pain assessment includes location, intensity, quality, duration, and aggravating/relieving factors.",
+                            arabic: "<span class=\"highlight highlight-pink\">الألم</span> يعتبر العلامة الحيوية الخامسة. هو تجربة ذاتية تتطلب من المريض الإبلاغ عنها بنفسه. يشمل تقييم الألم الموقع والشدة والنوعية والمدة والعوامل المسببة/المخففة."
+                        },
+                        {
+                            type: "dual-text-row",
+                            english: "Pain intensity can be measured using various scales including numeric rating scale (0-10), visual analog scale, faces pain scale, and Wong-Baker FACES Pain Rating Scale for children.",
+                            arabic: "يمكن قياس شدة الألم باستخدام مقاييس مختلفة بما في ذلك مقياس التقييم العددي (0-10)، ومقياس التشابه البصري، ومقياس وجوه الألم، ومقياس وونغ-بيكر لتقييم ألم الوجوه للأطفال."
+                        },
+                        {
+                            type: "professor-explanation",
+                            title: "Professor's Explanation",
+                            content: "Pain is whatever the experiencing person says it is, existing whenever they say it does. It's a complex phenomenon with physiological, psychological, social, and spiritual dimensions. Effective pain management requires comprehensive assessment, individualized treatment plans, and regular re-evaluation. The PQRST method (Provocation/Palliation, Quality, Region/Radiation, Severity, Timing) provides a structured approach to pain assessment.",
+                            arabic: "الألم هو ما يقوله الشخص الذي يعانيه، موجود كلما قالوا إنه موجود. هو ظاهرة معقدة بأبعاد فسيولوجية ونفسية واجتماعية وروحية. يتطلب إدارة الألم الفعالة تقييمًا شاملاً وخطط علاجية فردية وإعادة تقييم منتظمة. طريقة PQRST (الاستفزاز/التخفيف، النوعية، المنطقة/الإشعاع، الشدة، التوقيت) توفر نهجًا منظمًا لتقييم الألم."
+                        },
+                        {
+                            type: "practical-example",
+                            title: "Practical Example",
+                            content: "A post-operative patient reports pain of 7/10 on the numeric rating scale. The nurse should assess the location, quality, and characteristics of the pain; administer analgesics as ordered; evaluate the effectiveness of interventions after 30-60 minutes; and implement non-pharmacological pain relief measures such as positioning, distraction, or relaxation techniques.",
+                            arabic: "مريض بعد الجراحة يبلغ عن ألم 7/10 على مقياس التقييم العددي. يجب على الممرضة تقييم موقع ونوعية وخصائص الألم؛ إدارة المسكنات حسب التوجيهات؛ تقييم فعالية التدخلات بعد 30-60 دقيقة؛ وتنفيذ تدابير تخفيف الألم غير الدوائية مثل الوضعية أو التشتيت أو تقنيات الاسترخاء."
+                        },
+                        {
+                            type: "doctor-note",
+                            title: "Doctor's Note",
+                            content: "Uncontrolled pain can have detrimental physiological effects including increased heart rate, blood pressure, and respiratory rate; decreased oxygenation; impaired mobility; and delayed recovery. Effective pain management is not only a humanitarian imperative but also essential for optimal physiological functioning and recovery. Remember that pain is subjective and cultural factors may influence how patients express and experience pain.",
+                            arabic: "الألم غير المنضبط يمكن أن يكون له آثار فسيولوجية ضارة بما في ذلك زيادة معدل ضربات القلب وضغط الدم ومعدل التنفس؛ انخفاض الأكسجة؛ ضعف الحركة؛ وتأخير الشفاء. إدارة الألم الفعالة ليست فقط ضرورة إنسانية ولكنها ضرورية أيضًا للأداء الفسيولوجي الأمثل والشفاء. تذكر أن الألم ذاتي والعوامل الثقافية قد تؤثر على كيفية تعبير المرضى عن الألم وتجربتهم له."
+                        }
+                    ]
+                }
+            ];
+            
+            // Comparison content
+            const comparisonContent = [
+                {
+                    title: "Temperature Measurement Methods",
+                    titleArabic: "طرق قياس درجة الحرارة",
+                    rows: [
+                        {
+                            aspect: "Oral Method",
+                            aspectArabic: "طريقة الفم",
+                            item1: "Normal range: 36.5-37.5°C",
+                            item1Arabic: "النطاق الطبيعي: 36.5-37.5 درجة مئوية",
+                            item2: "Duration: 3 minutes",
+                            item2Arabic: "المدة: 3 دقائق"
+                        },
+                        {
+                            aspect: "Axillary Method",
+                            aspectArabic: "طريقة الإبط",
+                            item1: "Normal range: 36.5-37.5°C (+/- 0.5°C)",
+                            item1Arabic: "النطاق الطبيعي: 36.5-37.5 درجة مئوية (+/- 0.5 درجة مئوية)",
+                            item2: "Duration: 5 minutes",
+                            item2Arabic: "المدة: 5 دقائق"
+                        },
+                        {
+                            aspect: "Rectal Method",
+                            aspectArabic: "طريقة المستقيم",
+                            item1: "Normal range: 36.5-37.5°C (+/- 0.5°C)",
+                            item1Arabic: "النطاق الطبيعي: 36.5-37.5 درجة مئوية (+/- 0.5 درجة مئوية)",
+                            item2: "Duration: 1 minute",
+                            item2Arabic: "المدة: 1 دقيقة"
+                        },
+                        {
+                            aspect: "Contraindications",
+                            aspectArabic: "موانع الاستخدام",
+                            item1: "Unconscious, mentally ill, very young/old, irritable, coughing, mouth breather, oral/nasal problems",
+                            item1Arabic: "فاقد الوعي، مريض نفسي، صغير جدًا/كبير جدًا، عصبي، سعال، يتنفس من الفم، مشاكل فموية/أنفية",
+                            item2: "Diarrhea, rectal disease, transmissible diseases via stool, heart disease",
+                            item2Arabic: "الإسهال، أمراض المستقيم، أمراض معدية عبر البراز، أمراض القلب"
+                        }
+                    ]
+                },
+                {
+                    title: "Pulse Characteristics",
+                    titleArabic: "خصائص النبض",
+                    rows: [
+                        {
+                            aspect: "Rate",
+                            aspectArabic: "المعدل",
+                            item1: "Normal: 60-100 bpm",
+                            item1Arabic: "طبيعي: 60-100 نبضة في الدقيقة",
+                            item2: "Tachycardia: >100 bpm, Bradycardia: <60 bpm",
+                            item2Arabic: "تسرع القلب: >100 نبضة في الدقيقة، بطء القلب: <60 نبضة في الدقيقة"
+                        },
+                        {
+                            aspect: "Rhythm",
+                            aspectArabic: "الإيقاع",
+                            item1: "Regular: consistent interval between beats",
+                            item1Arabic: "منتظم: فترة متسقة بين النبضات",
+                            item2: "Irregular: inconsistent interval between beats",
+                            item2Arabic: "غير منتظم: فترة غير متسقة بين النبضات"
+                        },
+                        {
+                            aspect: "Volume",
+                            aspectArabic: "الحجم",
+                            item1: "Scale: 0 (absent) to 3 (bounding)",
+                            item1Arabic: "مقياس: 0 (غائب) إلى 3 (قوي)",
+                            item2: "Normal: 2 (easily felt, disappears with pressure)",
+                            item2Arabic: "طبيعي: 2 (يحس بسهولة، يختفي مع الضغط)"
+                        },
+                        {
+                            aspect: "Pulse Deficit",
+                            aspectArabic: "عجز النبض",
+                            item1: "Difference between apical and radial pulse",
+                            item1Arabic: "الفرق بين النبض القمي والنبض الكعبري",
+                            item2: "Normal: 5-10 bpm",
+                            item2Arabic: "طبيعي: 5-10 نبضة في الدقيقة"
+                        }
+                    ]
+                },
+                {
+                    title: "Respiration Characteristics",
+                    titleArabic: "خصائص التنفس",
+                    rows: [
+                        {
+                            aspect: "Rate",
+                            aspectArabic: "المعدل",
+                            item1: "Normal: 16-24 breaths/min",
+                            item1Arabic: "طبيعي: 16-24 نفسًا في الدقيقة",
+                            item2: "Tachypnea: abnormally rapid, Bradypnea: abnormally slow",
+                            item2Arabic: "تسرع التنفس: سريع بشكل غير طبيعي، بطء التنفس: بطيء بشكل غير طبيعي"
+                        },
+                        {
+                            aspect: "Rhythm",
+                            aspectArabic: "الإيقاع",
+                            item1: "Regular: consistent pattern",
+                            item1Arabic: "منتظم: نمط متسق",
+                            item2: "Irregular: inconsistent pattern",
+                            item2Arabic: "غير منتظم: نمط غير متسق"
+                        },
+                        {
+                            aspect: "Depth",
+                            aspectArabic: "العمق",
+                            item1: "Normal, Deep, Shallow",
+                            item1Arabic: "طبيعي، عميق، سطحي",
+                            item2: "Normal depth: adequate chest movement",
+                            item2Arabic: "العمق الطبيعي: حركة صدر كافية"
+                        },
+                        {
+                            aspect: "Abnormal Types",
+                            aspectArabic: "أنواع غير طبيعية",
+                            item1: "Hypoventilation, Dyspnea, Wheezes, Rhonchi",
+                            item1Arabic: "نقص التهوية، ضيق التنفس، الصفير، الخراخرة",
+                            item2: "Stridor, Orthopnea",
+                            item2Arabic: "الصرير، ضيق التنفس الانتصابي"
+                        }
+                    ]
+                }
+            ];
+            
+            // Important numbers content
+            const numbersContent = [
+                {
+                    number: "36.5-37.5°C",
+                    title: "Normal Body Temperature",
+                    titleArabic: "درجة حرارة الجسم الطبيعية",
+                    description: "The normal range for body temperature is 36.5-37.5°C (97.7-99.5°F).",
+                    descriptionArabic: "النطاق الطبيعي لدرجة حرارة الجسم هو 36.5-37.5 درجة مئوية (97.7-99.5 درجة فهرنهايت).",
+                    explanation: {
+                        type: "dual-text-row",
+                        english: "Body temperature is regulated by the hypothalamus, which acts as the body's thermostat. When temperature rises above the set point, mechanisms like sweating and vasodilation are activated to cool the body. When temperature falls below the set point, mechanisms like shivering and vasoconstriction are activated to generate heat.",
+                        arabic: "تنظم درجة حرارة الجسم تحت المهاد، الذي يعمل كمنظم حرارة للجسم. عندما ترتفع درجة الحرارة فوق نقطة الضبط، يتم تفعيل آليات مثل التعرق وتوسع الأوعية لتبريد الجسم. عندما تنخفض درجة الحرارة تحت نقطة الضبط، يتم تفعيل آليات مثل الارتعاش وتضيق الأوعية لتوليد الحرارة."
+                    }
+                },
+                {
+                    number: "60-100 bpm",
+                    title: "Normal Pulse Rate",
+                    titleArabic: "معدل النبض الطبيعي",
+                    description: "The normal range for adult pulse rate is 60-100 beats per minute (bpm).",
+                    descriptionArabic: "النطاق الطبيعي لمعدل نبض البالغين هو 60-100 نبضة في الدقيقة.",
+                    explanation: {
+                        type: "dual-text-row",
+                        english: "Pulse rate is affected by various factors including age, exercise, stress, emotions, position, metabolism, pain, caffeine, fever, bleeding, and certain medications. Tachycardia (>100 bpm) and bradycardia (<60 bpm) indicate abnormalities that may require intervention.",
+                        arabic: "يتأثر معدل النبض بعوامل مختلفة بما في ذلك العمر والتمرين والإجهاد والعواطف والموقف والأيض والألم والكافيين والحمى والنزيف وبعض الأدوية. تسرع القلب (>100 نبضة في الدقيقة) وبطء القلب (<60 نبضة في الدقيقة) يشيران إلى وجود خلل قد يتطلب التدخل."
+                    }
+                },
+                {
+                    number: "16-24/min",
+                    title: "Normal Respiration Rate",
+                    titleArabic: "معدل التنفس الطبيعي",
+                    description: "The normal range for adult respiration rate is 16-24 breaths per minute.",
+                    descriptionArabic: "النطاق الطبيعي لمعدل تنفس البالغين هو 16-24 نفسًا في الدقيقة.",
+                    explanation: {
+                        type: "dual-text-row",
+                        english: "Respiration rate increases with fever, exercise, anxiety, and respiratory disorders. It decreases with sleep, certain medications, and neurological conditions. Abnormal respiratory patterns and sounds can indicate specific respiratory problems that require assessment and intervention.",
+                        arabic: "يزداد معدل التنفس مع الحمى والتمرين والقلق واضطرابات الجهاز التنفسي. ينخفض مع النوم وبعض الأدوية والحالات العصبية. يمكن أن تشير أنماط التنفس غير الطبيعية والأصوات إلى مشاكل تنفسية محددة تتطلب التقييم والتدخل."
+                    }
+                },
+                {
+                    number: "120/80 mmHg",
+                    title: "Normal Blood Pressure",
+                    titleArabic: "ضغط الدم الطبيعي",
+                    description: "The normal range for adult blood pressure is 120/80 ± 20/15 mmHg.",
+                    descriptionArabic: "النطاق الطبيعي لضغط دم البالغين هو 120/80 ± 20/15 مم زئبق.",
+                    explanation: {
+                        type: "dual-text-row",
+                        english: "Blood pressure is regulated by multiple factors including cardiac output, peripheral resistance, blood volume, and blood viscosity. Hypertension (>140/95 mmHg) increases the risk of heart disease and stroke. Hypotension (<100/65 mmHg) can cause dizziness and fainting. Orthostatic hypotension occurs when changing position from lying to standing.",
+                        arabic: "ينظم ضغط الدم عوامل متعددة بما في ذلك النتاج القلبي والمقاومة الطرفية وحجم الدم ولزوجة الدم. ارتفاع ضغط الدم (>140/95 مم زئبق) يزيد من خطر أمراض القلب والسكتة الدماغية. انخفاض ضغط الدم (<100/65 مم زئبق) يمكن أن يسبب الدوار والإغماء. يحدث انخفاض ضغط الدم الانتصابي عند تغيير الوضع من الاستلقاء إلى الوقوف."
+                    }
+                },
+                {
+                    number: "0-10 Scale",
+                    title: "Pain Intensity Scale",
+                    titleArabic: "مقياس شدة الألم",
+                    description: "Pain intensity is commonly measured on a 0-10 numeric rating scale, where 0 is no pain and 10 is the worst imaginable pain.",
+                    descriptionArabic: "تقاس شدة الألم بشكل شائع على مقياس التقييم العددي 0-10، حيث 0 لا يوجد ألم و10 هو أسوأ ألم يمكن تصوره.",
+                    explanation: {
+                        type: "dual-text-row",
+                        english: "Pain assessment is essential for effective pain management. Other pain scales include the visual analog scale, faces pain scale, and Wong-Baker FACES Pain Rating Scale for children. Pain is considered the fifth vital sign and should be regularly assessed and managed.",
+                        arabic: "تقييم الألم ضروري لإدارة الألم الفعالة. تشمل مقاييس الألم الأخرى مقياس التشابه البصري ومقياس وجوه الألم ومقياس وونغ-بيكر لتقييم ألم الوجوه للأطفال. يعتبر الألم العلامة الحيوية الخامسة ويجب تقييمه وإدارته بانتظام."
+                    }
+                }
+            ];
+            
+            // Final review content
+            const finalReviewContent = [
+                {
+                    title: "Vital Signs Overview",
+                    titleArabic: "نظرة عامة على العلامات الحيوية",
+                    english: "Vital signs are physical indications that an individual is alive, providing baseline data about an individual's level of physical functioning. The five primary vital signs are temperature, pulse, respiration, blood pressure, and pain.",
+                    arabic: "العلامات الحيوية هي مؤشرات جسدية تدل على أن الفرد على قيد الحياة، وتوفر بيانات أساسية عن مستوى الأداء الجسدي للفرد. العلامات الحيوية الخمسة الأساسية هي درجة الحرارة، والنبض، والتنفس، وضغط الدم، والألم.",
+                    explanation: "Understanding normal ranges and abnormalities in vital signs is essential for early detection of health problems and timely intervention. Nurses should be proficient in assessing, monitoring, and interpreting vital signs.",
+                    explanationArabic: "فهم النطاقات الطبيعية والشذوذ في العلامات الحيوية ضروري لاكتشاف المشاكل الصحية مبكرًا والتدخل في الوقت المناسب. يجب على الممرضين أن يكونوا ماهرين في تقييم ومراقبة وتفسير العلامات الحيوية."
+                },
+                {
+                    title: "Temperature Assessment",
+                    titleArabic: "تقييم درجة الحرارة",
+                    english: "Normal body temperature is 36.5-37.5°C. Temperature alterations include hypothermia (<36.5°C), hyperthermia (37.5-38.5°C), fever (38.5-39.5°C), and pyrexia (>39.5°C).",
+                    arabic: "درجة حرارة الجسم الطبيعية هي 36.5-37.5 درجة مئوية. تشمل تغيرات درجة الحرارة انخفاض حرارة الجسم (<36.5 درجة مئوية)، وارتفاع حرارة الجسم (37.5-38.5 درجة مئوية)، والحمى (38.5-39.5 درجة مئوية)، والحمى الشديدة (>39.5 درجة مئوية).",
+                    explanation: "The hypothalamus regulates body temperature through various mechanisms. Fever is a protective response that enhances immune function. Nursing interventions for fever include monitoring temperature, increasing fluid intake, and administering antipyretics as ordered.",
+                    explanationArabic: "ينظم تحت المهاد درجة حرارة الجسم من خلال آليات مختلفة. الحمى هي استجابة وقائية تعزز وظيفة المناعة. تشمل التدخلات التمريضية للحمى مراقبة درجة الحرارة، وزيادة تناول السوائل، وإدارة الأدوية الخافضة للحرارة حسب التوجيهات."
+                },
+                {
+                    title: "Pulse Assessment",
+                    titleArabic: "تقييم النبض",
+                    english: "Normal pulse rate is 60-100 bpm. Pulse characteristics include rate, rhythm, and volume. Tachycardia (>100 bpm) and bradycardia (<60 bpm) indicate abnormalities.",
+                    arabic: "معدل النبض الطبيعي هو 60-100 نبضة في الدقيقة. تشمل خصائص النبض المعدل والإيقاع والحجم. تسرع القلب (>100 نبضة في الدقيقة) وبطء القلب (<60 نبضة في الدقيقة) يشيران إلى وجود خلل.",
+                    explanation: "Pulse can be assessed at various sites, with the radial artery being most common. Pulse rate increases approximately 10 bpm for each 1°C increase in body temperature. Pulse deficit is the difference between apical and radial pulse.",
+                    explanationArabic: "يمكن تقييم النبض في مواقع مختلفة، مع الشريان الكعبري هو الأكثر شيوعًا. يزداد معدل النبض بحوالي 10 نبضات في الدقيقة لكل زيادة بمقدار 1 درجة مئوية في درجة حرارة الجسم. عجز النبض هو الفرق بين النبض القمي والنبض الكعبري."
+                },
+                {
+                    title: "Respiration Assessment",
+                    titleArabic: "تقييم التنفس",
+                    english: "Normal respiration rate is 16-24 breaths per minute. Respiration characteristics include rate, rhythm, and depth. Abnormal respirations include hypoventilation, dyspnea, and tachypnea.",
+                    arabic: "معدل التنفس الطبيعي هو 16-24 نفسًا في الدقيقة. تشمل خصائص التنفس المعدل والإيقاع والعمق. التنفس غير الطبيعي يشمل نقص التهوية، وضيق التنفس، وتسرع التنفس.",
+                    explanation: "The medulla oblongata is the primary respiratory control center. Respiration rate increases approximately 4 breaths per minute for each 1°C increase in body temperature. Abnormal breathing sounds can indicate specific respiratory problems.",
+                    explanationArabic: "النخاع المستطيل هو مركز التحكم التنفسي الأساسي. يزداد معدل التنفس بحوالي 4 أنفاس في الدقيقة لكل زيادة بمقدار 1 درجة مئوية في درجة حرارة الجسم. يمكن أن تشير أصوات التنفس غير الطبيعية إلى مشاكل تنفسية محددة."
+                },
+                {
+                    title: "Blood Pressure Assessment",
+                    titleArabic: "تقييم ضغط الدم",
+                    english: "Normal blood pressure is 120/80 ± 20/15 mmHg. Hypertension (>140/95 mmHg) and hypotension (<100/65 mmHg) indicate abnormalities. Orthostatic hypotension occurs when changing position.",
+                    arabic: "ضغط الدم الطبيعي هو 120/80 ± 20/15 مم زئبق. ارتفاع ضغط الدم (>140/95 مم زئبق) وانخفاض ضغط الدم (<100/65 مم زئبق) يشيران إلى وجود خلل. يحدث انخفاض ضغط الدم الانتصابي عند تغيير الوضع.",
+                    explanation: "Blood pressure is regulated by multiple factors including cardiac output and peripheral resistance. Proper technique is essential for accurate measurement. Orthostatic hypotension requires immediate intervention to prevent falls.",
+                    explanationArabic: "ينظم ضغط الدم عوامل متعددة بما في ذلك النتاج القلبي والمقاومة الطرفية. التقنية الصحيحة ضرورية للقياس الدقيق. يتطلب انخفاض ضغط الدم الانتصابي تدخلًا فوريًا لمنع السقوط."
+                },
+                {
+                    title: "Pain Assessment",
+                    titleArabic: "تقييم الألم",
+                    english: "Pain is considered the fifth vital sign. It's a subjective experience requiring patient self-reporting. Pain intensity is commonly measured on a 0-10 scale.",
+                    arabic: "يعتبر الألم العلامة الحيوية الخامسة. هو تجربة ذاتية تتطلب من المريض الإبلاغ عنها بنفسه. تقاس شدة الألم بشكل شائع على مقياس 0-10.",
+                    explanation: "Effective pain management requires comprehensive assessment and individualized treatment. The PQRST method provides a structured approach to pain assessment. Uncontrolled pain can have detrimental physiological effects.",
+                    explanationArabic: "تتطلب إدارة الألم الفعالة تقييمًا شاملاً وخطط علاجية فردية. طريقة PQRST توفر نهجًا منظمًا لتقييم الألم. يمكن أن يكون للألم غير المنضبط آثار فسيولوجية ضارة."
+                }
+            ];
+            
+            // Exam tricks content
+            const examTricksContent = [
+                {
+                    title: "Understanding Temperature Questions",
+                    titleArabic: "فهم أسئلة درجة الحرارة",
+                    analysis: {
+                        english: "When answering questions about temperature, pay attention to the specific ranges for each category. Remember that hypothermia is <36.5°C, hyperthermia is 37.5-38.5°C, fever is 38.5-39.5°C, and pyrexia is >39.5°C. Also note the relationship between temperature increase and increases in pulse (10 bpm per 1°C) and respiration (4 breaths per 1°C).",
+                        arabic: "عند الإجابة على أسئلة حول درجة الحرارة، انتبه إلى النطاقات المحددة لكل فئة. تذكر أن انخفاض حرارة الجسم هو <36.5 درجة مئوية، وارتفاع حرارة الجسم هو 37.5-38.5 درجة مئوية، والحمى هي 38.5-39.5 درجة مئوية، والحمى الشديدة هي >39.5 درجة مئوية. لاحظ أيضًا العلاقة بين زيادة درجة الحرارة وزيادة النبض (10 نبضة في الدقيقة لكل 1 درجة مئوية) والتنفس (4 أنفاس لكل 1 درجة مئوية)."
+                    },
+                    tip: "For questions about fever management, remember the nursing interventions: check temperature frequently, increase fluid intake, provide cold drinks, encourage mouth washes, give a bath, ensure ventilation, decrease covers, apply cold compresses, and administer antipyretics.",
+                    tipArabic: "لأسئلة حول إدارة الحمى، تذكر التدخلات التمريضية: فحص درجة الحرارة بشكل متكرر، وزيادة تناول السوائل، وتقديم المشروبات الباردة، وتشجيع غسول الفم، وإعطاء حمام، وضمان التهوية، وتقليل الأغطية، وتطبيق ضمادات باردة، وإدارة الأدوية الخافضة للحرارة."
+                },
+                {
+                    title: "Mastering Pulse Questions",
+                    titleArabic: "إتقان أسئلة النبض",
+                    analysis: {
+                        english: "For pulse questions, remember the normal range (60-100 bpm), definitions of tachycardia (>100 bpm) and bradycardia (<60 bpm), and the three characteristics: rate, rhythm, and volume. Also recall that pulse deficit is the difference between apical and radial pulse (normal: 5-10 bpm).",
+                        arabic: "لأسئلة النبض، تذكر النطاق الطبيعي (60-100 نبضة في الدقيقة)، وتعريفات تسرع القلب (>100 نبضة في الدقيقة) وبطء القلب (<60 نبضة في الدقيقة)، والخصائص الثلاث: المعدل والإيقاع والحجم. تذكر أيضًا أن عجز النبض هو الفرق بين النبض القمي والنبض الكعبري (طبيعي: 5-10 نبضة في الدقيقة)."
+                    },
+                    tip: "When asked about factors affecting pulse rate, remember the ones that increase it: exercise, gender (female > male), age (young > old), emotions, position (standing > lying), metabolism, pain, caffeine, fever, bleeding, and some medications. Factors that decrease it include calmness, rest, fasting, age (decreases with age), medications like digitalis, and parasympathetic stimulation.",
+                    tipArabic: "عند السؤال عن العوامل التي تؤثر على معدل النبض، تذكر التي تزيده: التمرين، والجنس (الأنثى > الذكر)، والعمر (الشباب > كبار السن)، والعواطف، والموقف (الوقوف > الاستلقاء)، والأيض، والألم، والكافيين، والحمى، والنزيف، وبعض الأدوية. العوامل التي تنقصه تشمل الهدوء، والراحة، والصيام، والعمر (ينقص مع تقدم العمر)، والأدوية مثل الديجوكسين، والتحفيز نظير الودي."
+                },
+                {
+                    title: "Conquering Respiration Questions",
+                    titleArabic: "征服 أسئلة التنفس",
+                    analysis: {
+                        english: "For respiration questions, remember the normal range (16-24 breaths/min), definitions of tachypnea (abnormally rapid) and bradypnea (abnormally slow), and the three characteristics: rate, rhythm, and depth. Also recall the relationship between temperature increase and respiration increase (4 breaths per 1°C).",
+                        arabic: "لأسئلة التنفس، تذكر النطاق الطبيعي (16-24 نفسًا في الدقيقة)، وتعريفات تسرع التنفس (سريع بشكل غير طبيعي) وبطء التنفس (بطيء بشكل غير طبيعي)، والخصائص الثلاث: المعدل والإيقاع والعمق. تذكر أيضًا العلاقة بين زيادة درجة الحرارة وزيادة التنفس (4 أنفاس لكل 1 درجة مئوية)."
+                    },
+                    tip: "When asked about abnormal respirations, remember their definitions: hypoventilation (reduced rate and depth), dyspnea (subjective feeling of shortness of breath), tachypnea (abnormally rapid rate), wheezes (whistling sound from constricted bronchioles), rhonchi (sound from fluid/mucus in larger airways), stridor (crowing sound from upper airway obstruction), and orthopnea (difficulty breathing when lying flat).",
+                    tipArabic: "عند السؤال عن التنفس غير الطبيعي، تذكر تعريفاتها: نقص التهوية (معدل وعمق منخفض)، وضيق التنفس (شعور ذاتي بضيق التنفس)، وتسرع التنفس (معدل سريع بشكل غير طبيعي)، والصفير (صوت صفير من الشعب الهوائية المقيدة)، والخراخرة (صوت من السوائل/المخاط في المسالك الهوائية الكبيرة)، والصرير (صوت نعيق من انسداد مجرى الهواء العلوي)، وضيق التنفس الانتصابي (صعوبة في التنفس عند الاستلقاء بشكل مسطح)."
+                },
+                {
+                    title: "Navigating Blood Pressure Questions",
+                    titleArabic: "التنقل في أسئلة ضغط الدم",
+                    analysis: {
+                        english: "For blood pressure questions, remember the normal range (120/80 ± 20/15 mmHg), definitions of hypertension (>140/95 mmHg) and hypotension (<100/65 mmHg), and the concept of orthostatic hypotension (drop in BP when changing position from lying to standing).",
+                        arabic: "لأسئلة ضغط الدم، تذكر النطاق الطبيعي (120/80 ± 20/15 مم زئبق)، وتعريفات ارتفاع ضغط الدم (>140/95 مم زئبق) وانخفاض ضغط الدم (<100/65 مم زئبق)، ومفهوم انخفاض ضغط الدم الانتصابي (انخفاض ضغط الدم عند تغيير الوضع من الاستلقاء إلى الوقوف)."
+                    },
+                    tip: "When asked about factors affecting blood pressure, remember the ones that increase it: age, sympathetic activity (anxiety, pain, stress, exercise), position (standing > lying), diet (salty, fatty foods), exercise, alcohol, smoking, certain diseases, and some medications. Factors that decrease it include fasting, night time, hot weather, certain medications, and some diseases.",
+                    tipArabic: "عند السؤال عن العوامل التي تؤثر على ضغط الدم، تذكر التي تزيده: العمر، والنشاط الودي (القلق، والألم، والإجهاد، والتمرين)، والموقف (الوقوف > الاستلقاء)، والنظام الغذائي (الأطعمة المالحة والدسمة)، والتمرين، والكحول، والتدخين، وبعض الأمراض، وبعض الأدوية. العوامل التي تنقصه تشمل الصيام، والوقت الليلي، والطقس الحار، وبعض الأدوية، وبعض الأمراض."
+                },
+                {
+                    title: "Approaching Pain Assessment Questions",
+                    titleArabic: "التعامل مع أسئلة تقييم الألم",
+                    analysis: {
+                        english: "For pain assessment questions, remember that pain is considered the fifth vital sign and is subjective. Pain intensity is commonly measured on a 0-10 scale. The PQRST method (Provocation/Palliation, Quality, Region/Radiation, Severity, Timing) provides a structured approach to pain assessment.",
+                        arabic: "لأسئلة تقييم الألم، تذكر أن الألم يعتبر العلامة الحيوية الخامسة وهو ذاتي. تقاس شدة الألم بشكل شائع على مقياس 0-10. طريقة PQRST (الاستفزاز/التخفيف، النوعية، المنطقة/الإشعاع، الشدة، التوقيت) توفر نهجًا منظمًا لتقييم الألم."
+                    },
+                    tip: "When asked about pain scales, remember the different types: numeric rating scale (0-10), visual analog scale, faces pain scale, and Wong-Baker FACES Pain Rating Scale for children. For pain management questions, remember both pharmacological (analgesics) and non-pharmacological interventions (positioning, distraction, relaxation techniques).",
+                    tipArabic: "عند السؤال عن مقاييس الألم، تذكر الأنواع المختلفة: مقياس التقييم العددي (0-10)، ومقياس التشابه البصري، ومقياس وجوه الألم، ومقياس وونغ-بيكر لتقييم ألم الوجوه للأطفال. لأسئلة إدارة الألم، تذكر كل من التدخلات الدوائية (المسكنات) وغير الدوائية (الوضعية، والتشتيت، وتقنيات الاسترخاء)."
+                }
+            ];
+            
+            // Speech synthesis setup
+            function loadVoices() {
+                const voices = window.speechSynthesis.getVoices();
+                selectedUsVoice = voices.find(voice => voice.lang.startsWith('en-US')) || voices.find(voice => voice.lang.includes('US'));
+            }
+            loadVoices();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = loadVoices;
+            }
+            
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // Navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            const menuToggle = document.getElementById('menu-toggle');
+            const navContainer = document.getElementById('nav-container');
+            
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('open');
+                navContainer.classList.toggle('open');
+                
+                // Show interactive message when menu is opened
+                if (navContainer.classList.contains('open')) {
+                    showMessage();
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetPage = link.getAttribute('data-page');
+                    
+                    // Close the menu after clicking a link
+                    menuToggle.classList.remove('open');
+                    navContainer.classList.remove('open');
+                    
+                    // Stop all timers when navigating away
+                    clearInterval(quizTimerInterval);
+                    clearInterval(wordsTimerInterval);
+                    quizTimerInterval = null;
+                    wordsTimerInterval = null;
+                    
+                    // Hide all pages
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+                    
+                    // Show target page
+                    document.getElementById(targetPage).classList.add('active-page');
+                    
+                    // Update nav active state
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Start timer for the specific page if it's the first visit
+                    if (targetPage === 'page6' && !quizTimerInterval) {
+                        startQuizTimer();
+                    }
+                    if (targetPage === 'page8' && !wordsTimerInterval) {
+                        startWordsTimer();
+                    }
+                });
+            });
+            
+            // Interactive message function
+            function showMessage() {
+                const message = document.getElementById('interactive-message');
+                message.style.display = 'block';
+                
+                // Auto-hide after 3 seconds
+                setTimeout(() => {
+                    message.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Close message button
+            document.getElementById('message-close').addEventListener('click', () => {
+                document.getElementById('interactive-message').style.display = 'none';
+            });
+            
+            // Flashcard functionality
+            const flashcard = document.getElementById('flashcard');
+            const cardFrontText = document.getElementById('card-front-text');
+            const cardBack = document.getElementById('card-back');
+            const currentCardSpan = document.getElementById('current-card');
+            const totalCardsSpan = document.getElementById('total-cards');
+            
+            function updateFlashcard() {
+                const card = flashcardsData[currentCardIndex];
+                cardFrontText.textContent = card.front;
+                cardBack.innerHTML = `
+                    <h2>${card.back.term}</h2>
+                    <h3>(${card.back.translation})</h3>
+                    <div class="dual-text-row">
+                        <div class="english-side">${card.back.english}</div>
+                        <div class="arrow-separator"></div>
+                        <div class="arabic-side">${card.back.arabic}</div>
+                    </div>
+                `;
+                currentCardSpan.textContent = currentCardIndex + 1;
+                totalCardsSpan.textContent = flashcardsData.length;
+                flashcard.classList.remove('flipped');
+            }
+            
+            function speakFlashcard() {
+                if (flashcardsData.length === 0) return;
+                const card = flashcardsData[currentCardIndex];
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(card.back.term);
+                    if (selectedUsVoice) { 
+                        utterance.voice = selectedUsVoice; 
+                    }
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.9;
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    alert("Sorry, your browser doesn't support text-to-speech.");
+                }
+            }
+            
+            document.getElementById('prev-card').addEventListener('click', () => { 
+                if (currentCardIndex > 0) { 
+                    currentCardIndex--; 
+                    updateFlashcard(); 
+                } 
+            });
+            
+            document.getElementById('next-card').addEventListener('click', () => { 
+                if (currentCardIndex < flashcardsData.length - 1) { 
+                    currentCardIndex++; 
+                    updateFlashcard(); 
+                } 
+            });
+            
+            document.getElementById('flip-card').addEventListener('click', () => { 
+                flashcard.classList.toggle('flipped'); 
+            });
+            
+            document.getElementById('speak-card').addEventListener('click', speakFlashcard);
+            
+            flashcard.addEventListener('click', (e) => { 
+                if (e.target.tagName !== 'BUTTON') { 
+                    flashcard.classList.toggle('flipped'); 
+                } 
+            });
+            
+            // Generate detailed explanation content
+            function generateDetailedExplanation() {
+                const container = document.getElementById('detailed-explanation');
+                container.innerHTML = '';
+                
+                detailedExplanationContent.forEach((section, index) => {
+                    const numberedItem = document.createElement('div');
+                    numberedItem.className = 'numbered-item';
+                    
+                    let contentHTML = `<h2>${index + 1}. ${section.title} - ${section.titleArabic}</h2>`;
+                    
+                    section.content.forEach(item => {
+                        if (item.type === 'dual-text-row') {
+                            contentHTML += `
+                                <div class="dual-text-row">
+                                    <div class="english-side">${item.english}</div>
+                                    <div class="arrow-separator"></div>
+                                    <div class="arabic-side">${item.arabic}</div>
+                                </div>
+                            `;
+                        } else if (item.type === 'professor-explanation') {
+                            contentHTML += `
+                                <div class="professor-explanation">
+                                    <h4><i class="fas fa-user-graduate"></i> ${item.title}</h4>
+                                    <p>${item.content}</p>
+                                    <p>${item.contentArabic}</p>
+                                </div>
+                            `;
+                        } else if (item.type === 'practical-example') {
+                            contentHTML += `
+                                <div class="practical-example">
+                                    <h4><i class="fas fa-hospital"></i> ${item.title}</h4>
+                                    <p>${item.content}</p>
+                                    <p>${item.contentArabic}</p>
+                                </div>
+                            `;
+                        } else if (item.type === 'doctor-note') {
+                            contentHTML += `
+                                <div class="doctor-note">
+                                    <h4><i class="fas fa-user-md"></i> ${item.title}</h4>
+                                    <p>${item.content}</p>
+                                    <p>${item.contentArabic}</p>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    numberedItem.innerHTML = contentHTML;
+                    container.appendChild(numberedItem);
+                });
+            }
+            
+            // Generate comparison content
+            function generateComparisons() {
+                const container = document.getElementById('comparisons');
+                container.innerHTML = '';
+                
+                comparisonContent.forEach((comparison, index) => {
+                    const numberedItem = document.createElement('div');
+                    numberedItem.className = 'numbered-item';
+                    
+                    let contentHTML = `<h2>${index + 1}. ${comparison.title} - ${comparison.titleArabic}</h2>`;
+                    
+                    contentHTML += `
+                        <div class="comparison-table-3col">
+                            <div class="comparison-header">
+                                <div>Aspect / البعد</div>
+                                <div>${comparison.title}</div>
+                                <div>${comparison.titleArabic}</div>
+                            </div>
+                    `;
+                    
+                    comparison.rows.forEach(row => {
+                        contentHTML += `
+                            <div class="comparison-row">
+                                <div class="col-aspect">${row.aspect}<br><em>${row.aspectArabic}</em></div>
+                                <div class="col-item1">${row.item1}<br><em>${row.item1Arabic}</em></div>
+                                <div class="col-item2">${row.item2}<br><em>${row.item2Arabic}</em></div>
+                            </div>
+                        `;
+                    });
+                    
+                    contentHTML += `</div>`;
+                    
+                    numberedItem.innerHTML = contentHTML;
+                    container.appendChild(numberedItem);
+                });
+            }
+            
+            // Generate important numbers content
+            function generateImportantNumbers() {
+                const container = document.getElementById('important-numbers');
+                container.innerHTML = '';
+                
+                numbersContent.forEach((number, index) => {
+                    const numberSlide = document.createElement('div');
+                    numberSlide.className = 'number-slide';
+                    
+                    numberSlide.innerHTML = `
+                        <div class="number-highlight">${number.number}</div>
+                        <h3 class="number-title">${number.title} - ${number.titleArabic}</h3>
+                        <p class="number-description">${number.description}</p>
+                        <p class="number-description">${number.descriptionArabic}</p>
+                        <div class="number-explanation">
+                            ${number.explanation.type === 'dual-text-row' ? `
+                                <div class="dual-text-row">
+                                    <div class="english-side">${number.explanation.english}</div>
+                                    <div class="arrow-separator"></div>
+                                    <div class="arabic-side">${number.explanation.arabic}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    
+                    container.appendChild(numberSlide);
+                });
+            }
+            
+            // Generate final review content
+            function generateFinalReview() {
+                const container = document.getElementById('final-review');
+                container.innerHTML = '';
+                
+                finalReviewContent.forEach((review, index) => {
+                    const reviewSlide = document.createElement('div');
+                    reviewSlide.className = 'review-slide';
+                    
+                    reviewSlide.innerHTML = `
+                        <h3 class="review-title">${index + 1}. ${review.title} - ${review.titleArabic}</h3>
+                        <div class="review-content">
+                            <div class="review-english">${review.english}</div>
+                            <div class="review-arabic">${review.arabic}</div>
+                        </div>
+                        <div class="review-explanation">
+                            <h4><i class="fas fa-lightbulb"></i> Key Point / نقطة رئيسية</h4>
+                            <p>${review.explanation}</p>
+                            <p>${review.explanationArabic}</p>
+                        </div>
+                    `;
+                    
+                    container.appendChild(reviewSlide);
+                });
+            }
+            
+            // Generate quiz questions
+            function generateQuizQuestions() {
+                const container = document.getElementById('quiz-questions');
+                container.innerHTML = '';
+                
+                quizData.forEach((q, index) => {
+                    const questionCard = document.createElement('div');
+                    questionCard.className = 'question-card';
+                    
+                    // Add difficulty badge
+                    let difficultyClass = '';
+                    let difficultyText = '';
+                    
+                    if (q.difficulty === 'easy') {
+                        difficultyClass = 'difficulty-easy';
+                        difficultyText = 'EASY';
+                    } else if (q.difficulty === 'medium') {
+                        difficultyClass = 'difficulty-medium';
+                        difficultyText = 'MEDIUM';
+                    } else if (q.difficulty === 'hard') {
+                        difficultyClass = 'difficulty-hard';
+                        difficultyText = 'HARD';
+                    }
+                    
+                    questionCard.innerHTML = `
+                        <div class="question-difficulty ${difficultyClass}">${difficultyText}</div>
+                        <div class="question-header">
+                            <div class="question-text">${q.question}</div>
+                            <div class="question-number">${index + 1}</div>
+                        </div>
+                        <div class="options">
+                            ${q.options.map((option, i) => `
+                                <div class="option" data-question="${index}" data-option="${i}">
+                                    <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                    <div class="option-text">${option}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="explanation" id="quiz-explanation-${index}">
+                            <div class="dual-content">
+                                <div class="english-content">${q.explanation.english}</div>
+                                <div class="arabic-content">${q.explanation.arabic}</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(questionCard);
+                });
+                
+                // Add event listeners to options
+                container.querySelectorAll('.option').forEach(opt => { 
+                    opt.addEventListener('click', function() { 
+                        selectQuizOption(parseInt(this.dataset.question), parseInt(this.dataset.option)); 
+                    }); 
+                });
+            }
+            
+            function selectQuizOption(questionIndex, optionIndex) {
+                const options = document.querySelectorAll(`#quiz-questions .question-card:nth-child(${questionIndex + 1}) .option`);
+                options.forEach(opt => opt.classList.remove('selected'));
+                options[optionIndex].classList.add('selected');
+                quizAnswers[questionIndex] = optionIndex;
+                updateQuizStats();
+            }
+            
+            function updateQuizStats() {
+                const answeredCount = quizAnswers.filter(a => a !== undefined).length;
+                document.getElementById('answered-count').textContent = answeredCount;
+                document.getElementById('remaining-count').textContent = quizData.length - answeredCount;
+            }
+            
+            function startQuizTimer() {
+                updateTimerDisplay('quiz-timer', quizTimeLeft);
+                quizTimerInterval = setInterval(() => { 
+                    quizTimeLeft--; 
+                    updateTimerDisplay('quiz-timer', quizTimeLeft); 
+                    if (quizTimeLeft <= 0) { 
+                        clearInterval(quizTimerInterval); 
+                        alert('Time is up! Submitting quiz.'); 
+                        submitQuiz(); 
+                    } 
+                }, 1000);
+            }
+            
+            function submitQuiz() {
+                clearInterval(quizTimerInterval);
+                let correct = 0;
+                
+                quizData.forEach((q, index) => {
+                    const options = document.querySelectorAll(`#quiz-questions .question-card:nth-child(${index + 1}) .option`);
+                    options.forEach(opt => opt.style.pointerEvents = 'none');
+                    
+                    if (quizAnswers[index] === q.correct) { 
+                        correct++; 
+                        options[quizAnswers[index]].classList.add('correct'); 
+                    } else { 
+                        if (quizAnswers[index] !== undefined) { 
+                            options[quizAnswers[index]].classList.add('wrong'); 
+                        } 
+                        options[q.correct].classList.add('correct'); 
+                    }
+                    
+                    document.getElementById(`quiz-explanation-${index}`).classList.add('show');
+                });
+                
+                showResults('quiz-results', correct, quizData.length - correct, quizData.length);
+            }
+            
+            // Generate words test questions
+            function generateWordsQuestions() {
+                const container = document.getElementById('words-questions');
+                container.innerHTML = '';
+                
+                wordsData.forEach((w, index) => {
+                    const questionCard = document.createElement('div');
+                    questionCard.className = 'words-question-card';
+                    
+                    questionCard.innerHTML = `
+                        <div class="question-header">
+                            <div class="question-number">${index + 1}</div>
+                        </div>
+                        <div class="word-display">${w.word}</div>
+                        <div class="options">
+                            ${w.options.map((option, i) => `
+                                <div class="words-option" data-words-question="${index}" data-option="${i}">
+                                    <div class="words-option-letter">${String.fromCharCode(65 + i)}</div>
+                                    <div class="option-text">${option}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    container.appendChild(questionCard);
+                });
+                
+                // Add event listeners to options
+                container.querySelectorAll('.words-option').forEach(opt => { 
+                    opt.addEventListener('click', function() { 
+                        selectWordsOption(parseInt(this.dataset.wordsQuestion), parseInt(this.dataset.option)); 
+                    }); 
+                });
+            }
+            
+            function selectWordsOption(questionIndex, optionIndex) {
+                const options = document.querySelectorAll(`#words-questions .words-question-card:nth-child(${questionIndex + 1}) .words-option`);
+                options.forEach(opt => opt.classList.remove('selected'));
+                options[optionIndex].classList.add('selected');
+                wordsAnswers[questionIndex] = optionIndex;
+                updateWordsStats();
+            }
+            
+            function updateWordsStats() {
+                const answeredCount = wordsAnswers.filter(a => a !== undefined).length;
+                document.getElementById('words-answered-count').textContent = answeredCount;
+                document.getElementById('words-remaining-count').textContent = wordsData.length - answeredCount;
+            }
+            
+            function startWordsTimer() {
+                updateTimerDisplay('words-timer', wordsTimeLeft);
+                wordsTimerInterval = setInterval(() => { 
+                    wordsTimeLeft--; 
+                    updateTimerDisplay('words-timer', wordsTimeLeft); 
+                    if (wordsTimeLeft <= 0) { 
+                        clearInterval(wordsTimerInterval); 
+                        alert('Time is up! Submitting test.'); 
+                        submitWordsTest(); 
+                    } 
+                }, 1000);
+            }
+            
+            function submitWordsTest() {
+                clearInterval(wordsTimerInterval);
+                let correct = 0;
+                
+                wordsData.forEach((w, index) => {
+                    const options = document.querySelectorAll(`#words-questions .words-question-card:nth-child(${index + 1}) .words-option`);
+                    options.forEach(opt => opt.style.pointerEvents = 'none');
+                    
+                    if (wordsAnswers[index] === w.correct) { 
+                        correct++; 
+                        options[wordsAnswers[index]].classList.add('correct'); 
+                    } else { 
+                        if (wordsAnswers[index] !== undefined) { 
+                            options[wordsAnswers[index]].classList.add('wrong'); 
+                        } 
+                        options[w.correct].classList.add('correct'); 
+                    }
+                });
+                
+                showResults('words-results', correct, wordsData.length - correct, wordsData.length);
+            }
+            
+            // Generate exam tricks content
+            function generateExamTricks() {
+                const container = document.getElementById('tricks-content');
+                container.innerHTML = '';
+                
+                examTricksContent.forEach((trick, index) => {
+                    const trickCard = document.createElement('div');
+                    trickCard.className = 'trick-card';
+                    
+                    trickCard.innerHTML = `
+                        <div class="trick-header">
+                            <div class="trick-icon"><i class="fas fa-lightbulb"></i></div>
+                            <div class="trick-title">${index + 1}. ${trick.title} - ${trick.titleArabic}</div>
+                        </div>
+                        <div class="trick-analysis">
+                            <div class="analysis-english">${trick.analysis.english}</div>
+                            <div class="analysis-arabic">${trick.analysis.arabic}</div>
+                        </div>
+                        <div class="practical-example">
+                            <h4><i class="fas fa-star"></i> Tip / نصيحة</h4>
+                            <p>${trick.tip}</p>
+                            <p>${trick.tipArabic}</p>
+                        </div>
+                    `;
+                    
+                    container.appendChild(trickCard);
+                });
+            }
+            
+            // Helper functions
+            function updateTimerDisplay(timerId, seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                document.getElementById(timerId).textContent = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            function showResults(elementId, correct, wrong, total) {
+                const score = Math.round((correct / total) * 100);
+                const reportDiv = document.getElementById(elementId);
+                reportDiv.innerHTML = `
+                    <div class="score-circle">${score}%</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">${correct}</div>
+                            <div class="stat-label">Correct / صحيح</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${wrong}</div>
+                            <div class="stat-label">Wrong / خطأ</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${total}</div>
+                            <div class="stat-label">Total / الإجمالي</div>
+                        </div>
+                    </div>
+                `;
+                reportDiv.classList.add('show');
+                reportDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Initialize the app
+            function initializeApp() {
+                updateFlashcard();
+                generateDetailedExplanation();
+                generateComparisons();
+                generateImportantNumbers();
+                generateFinalReview();
+                generateQuizQuestions();
+                generateWordsQuestions();
+                generateExamTricks();
+                updateQuizStats();
+                updateWordsStats();
+            }
+            
+            // Submit button event listeners
+            document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
+            document.getElementById('submit-words').addEventListener('click', submitWordsTest);
+            
+            // Initialize the app when DOM is loaded
+            initializeApp();
+        });
+    </script>
+</body>
+</html>
